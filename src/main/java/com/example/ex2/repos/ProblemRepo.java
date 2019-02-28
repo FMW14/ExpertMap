@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ProblemRepo extends CrudRepository<Problem, Integer> {
         //List<Problem> findByLogin(String login);
+        List<Problem> findById(int id);
         }
