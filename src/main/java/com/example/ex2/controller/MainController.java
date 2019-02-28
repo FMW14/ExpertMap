@@ -31,18 +31,13 @@ public class MainController {
         return "main";
     }
 
-    @GetMapping("problemslist")
+    @GetMapping("list")
     public String problemslist(Map<String, Object> model) {
         Iterable<Problem> problems = problemRepo.findAll();
         model.put("problems", problems);
-        return "problemslist";
-    }
-
-    @GetMapping("tasks")
-    public String tasks(Map<String, Object> model) {
         Iterable<Task> tasks = taskRepo.findAll();
         model.put("tasks", tasks);
-        return "tasks";
+        return "list";
     }
 
     @GetMapping("/login")
@@ -60,7 +55,7 @@ public class MainController {
 
         Iterable<Problem> problems = problemRepo.findAll();
         model.put("problems", problems);
-        return "redirect:/problemslist";
+        return "redirect:/list";
         //return "redirect:/";
         //return "addproblem";
     }
@@ -71,7 +66,7 @@ public class MainController {
         taskRepo.save(task);
         Iterable<Task> tasks = taskRepo.findAll();
         model.put("tasks", tasks);
-        return "redirect:/tasks";
+        return "redirect:/list";
 
     }
 
