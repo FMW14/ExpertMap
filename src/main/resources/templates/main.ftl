@@ -11,5 +11,6 @@
     <div align="center">
         <a href="/login">Login page</a>
         <a href="/list">Problems list</a>
+        <span><a href="/user">Userlist</a></span>
     </div>
 </@c.page>
