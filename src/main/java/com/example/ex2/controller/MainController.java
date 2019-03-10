@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -37,6 +39,7 @@ public class MainController {
         model.put("problems", problems);
         Iterable<Task> tasks = taskRepo.findAll();
         model.put("tasks", tasks);
+
         return "list";
     }
 
@@ -67,7 +70,24 @@ public class MainController {
         Iterable<Task> tasks = taskRepo.findAll();
         model.put("tasks", tasks);
         return "redirect:/list";
+    }
 
+    @PostMapping("addProbTask")
+    public String addProbTask(
+                              @RequestParam(value = "probId", required = true) Problem newProblem,
+                              @RequestParam(value = "taskId", required = true) Task newTask,
+                              Map<String, Object> model
+    ){
+
+        Task task = taskRepo.findById(newTask.getId()).orElse(null);
+        List<Task> tasks = new ArrayList<>();
+        tasks.add(task);
+
+        newProblem.setTasks(tasks);
+
+        problemRepo.save(newProblem);
+
+        return "redirect:/list";
     }
 
 }

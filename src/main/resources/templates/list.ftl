@@ -42,6 +42,47 @@ No tasks
 </#list>
 
 
+<div>
+    <form method="post" action="addProbTask">
+        <label>Добавить новую связь</label>
+        <select id="probId" name="probId">
+            <#list problems as problem>
+                <option value="${problem.id}">${problem.name}</option>
+            </#list>
+        </select>
+        <select id="taskId" name="taskId">
+            <#list tasks as task>
+                <option value="${task.id}">${task.name}</option>
+            </#list>
+        </select>
+        <button type="submit">Add</button>
+        <input type="hidden" name="_csrf" value="${_csrf.token}" />
+    </form>
+
+    <#--<table>-->
+        <#--<thead>-->
+        <#--<tr>-->
+            <#--<th>Problem</th>-->
+            <#--<th>Task</th>-->
+            <#--<th></th>-->
+        <#--</tr>-->
+
+        <#--</thead>-->
+        <#--<tbody>-->
+    <#--<#list problems as problem>-->
+    <#--<tr>-->
+        <#--<td>${problem.name}</td>-->
+        <#--<td>${problem.}</td>-->
+        <#--&lt;#&ndash;<td><#list user.roles as role>${role}<#sep>,</#list></td>&ndash;&gt;-->
+        <#--<td>placeholder </td>-->
+    <#--</tr>-->
+    <#--</#list>-->
+        <#--</tbody>-->
+
+    <#--</table>-->
+</div>
+
+
 <#--{{#tasks}}-->
     <#--<div align="center">-->
         <#--<b>{{id}}</b>-->
