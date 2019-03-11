@@ -59,10 +59,25 @@ No tasks
         <input type="hidden" name="_csrf" value="${_csrf.token}" />
     </form>
 
+    <form method="post" action="addTaskTool">
+        <label>Добавить новую связь</label>
+        <select name="taskId">
+            <#list tasks as task>
+                <option value="${task.id}">${task.name}</option>
+            </#list>
+        </select>
+        <select id="toolId" name="toolId">
+            <#list tools as tool>
+                <option value="${tool.id}">${tool.name}</option>
+            </#list>
+        </select>
+        <button type="submit">Add</button>
+        <input type="hidden" name="_csrf" value="${_csrf.token}" />
+    </form>
     <#--<table>-->
         <#--<thead>-->
         <#--<tr>-->
-            <#--<th>Problem</th>-->
+            <#--<th>problemEdit.ftl</th>-->
             <#--<th>Task</th>-->
             <#--<th></th>-->
         <#--</tr>-->

@@ -2,8 +2,10 @@ package com.example.ex2.controller;
 
 import com.example.ex2.domain.Problem;
 import com.example.ex2.domain.Task;
+import com.example.ex2.domain.Tool;
 import com.example.ex2.repos.ProblemRepo;
 import com.example.ex2.repos.TaskRepo;
+import com.example.ex2.repos.ToolRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +22,8 @@ public class MainController {
     private ProblemRepo problemRepo;
     @Autowired
     private TaskRepo taskRepo;
+    @Autowired
+    private ToolRepo toolRepo;
 
     @GetMapping("/")
     public String greeting(Map<String, Object> model) {
@@ -39,7 +43,8 @@ public class MainController {
         model.put("problems", problems);
         Iterable<Task> tasks = taskRepo.findAll();
         model.put("tasks", tasks);
-
+        Iterable<Tool> tools = toolRepo.findAll();
+        model.put("tools", tools);
         return "list";
     }
 
@@ -80,12 +85,30 @@ public class MainController {
     ){
 
         Task task = taskRepo.findById(newTask.getId()).orElse(null);
-        List<Task> tasks = new ArrayList<>();
+        List<Task> tasks = newProblem.getTasks();
         tasks.add(task);
 
         newProblem.setTasks(tasks);
 
         problemRepo.save(newProblem);
+
+        return "redirect:/list";
+    }
+
+    @PostMapping("addTaskTool")
+    public String addTaskTool(
+            @RequestParam(value = "taskId", required = true) Task newTask,
+            @RequestParam(value = "toolId", required = true) Tool newTool,
+            Map<String, Object> model
+    ){
+
+        Tool tool = toolRepo.findById(newTool.getId()).orElse(null);
+        List<Tool> tools = newTask.getTools();
+        tools.add(tool);
+
+        newTask.setTools(tools);
+
+        taskRepo.save(newTask);
 
         return "redirect:/list";
     }

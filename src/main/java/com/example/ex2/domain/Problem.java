@@ -1,9 +1,10 @@
 package com.example.ex2.domain;
 
-import javax.persistence.*;
-import java.util.HashSet;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.ManyToMany;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 public class Problem {
@@ -20,7 +21,7 @@ public class Problem {
 //            joinColumns = { @JoinColumn (name = "problem_id") },
 //            inverseJoinColumns = { @JoinColumn(name = "task_id") }
 //    )
-//    private Set<Problem> probset = new HashSet<>();
+//    private Set<problemEdit.ftl> probset = new HashSet<>();
 
     @ManyToMany
     private List<Task> tasks;
@@ -56,11 +57,11 @@ public class Problem {
         this.tasks = tasks;
     }
 
-    //    public Set<Problem> getProblems() {
+    //    public Set<problemEdit.ftl> getProblems() {
 //        return probset;
 //    }
 //
-//    public void setProblems(Set<Problem> problems) {
+//    public void setProblems(Set<problemEdit.ftl> problems) {
 //        this.probset = problems;
 //    }
 }
