@@ -14,6 +14,8 @@ public interface TaskRepo extends JpaRepository<Task, Integer> {
 
 //    @Query(value = "select tasks_id from problem_tasks where problems_id = ?1", nativeQuery = true)
     List<Task> findByProblems(Problem problem);
+    List<Task> findByName(String s);
+    List<Task> findById(int i);
 }
 
 

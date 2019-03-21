@@ -7,8 +7,9 @@
         <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
     </form>
 </div>
-<div align="center">Hello</div>
-    <div align="center">
+<#--<div align="center">Hello</div>-->
+<div>Hello</div>
+    <div>
         <a href="/login">Login page</a>
         <a href="/list">Problems list</a>
         <a href="/businessInfo">Admin list</a>

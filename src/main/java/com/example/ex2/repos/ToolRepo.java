@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface ToolRepo extends JpaRepository<Tool, Integer>{
     List<Tool> findByTasks(Task task);
+    List<Tool> findById(int i);
 
 }
 

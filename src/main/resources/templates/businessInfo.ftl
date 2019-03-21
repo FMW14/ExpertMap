@@ -5,12 +5,12 @@
     <#list problems as problem>
     <div>
         <b>${problem.name}</b>
-        <a href="/businessInfo/problem/${problem.id}">edit</a>
+        <a href="/businessInfo/problem/edit/${problem.id}">edit</a>
         </div>
     <#else >
         No problems
     </#list>
-
+<a href="/businessInfo/problem/new/">Add new problem</a>
 
 <div>Список задач</div>
     <#list tasks as task>
@@ -22,5 +22,6 @@
 No tasks
     </#list>
 
+    ${message?if_exists}
 
 </@c.page>

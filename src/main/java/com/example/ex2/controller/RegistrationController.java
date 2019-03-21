@@ -32,7 +32,11 @@ public class RegistrationController {
 
         user.setActive(true); // TODO FALSE BY DEFAULT
         user.setRoles(Collections.singleton(Role.USER));
-        userRepo.save(user);
+
+        if (user.getUsername() != null){
+            userRepo.save(user);
+        }
+
 
         return "redirect:/login";
     }
