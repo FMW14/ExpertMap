@@ -8,4 +8,5 @@ import java.util.List;
 public interface ProblemRepo extends CrudRepository<Problem, Integer> {
         //List<problemEdit.ftl> findByLogin(String login);
         List<Problem> findById(int id);
+        List<Problem> findByName(String s);
         }

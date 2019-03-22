@@ -1,6 +1,7 @@
 package com.example.ex2.controller;
 
 
+import antlr.StringUtils;
 import com.example.ex2.domain.Problem;
 import com.example.ex2.domain.Task;
 import com.example.ex2.domain.Tool;
@@ -49,6 +50,14 @@ public class BusinessInfoController {
         return "problemEdit";
     }
 
+    @GetMapping("/task/edit/{task}")
+    public String taskEditForm(Model model,
+                               @PathVariable Task task){
+        model.addAttribute("task", task);
+//        model.addAttribute("taskTools", toolRepo.findByTasks(task));
+        model.addAttribute("taskTools", toolRepo.findAll());
+        return "taskEdit";
+    }
     @GetMapping("/problem/new/")
     public String newProblem(Model model){
 //        String action = "new";
@@ -60,10 +69,10 @@ public class BusinessInfoController {
         return "problemEdit";
     }
 
-    @GetMapping("/task/{task}")
-    public String taskEditForm(@PathVariable Task task, Model model){
-        model.addAttribute("task", task);
-//        model.addAttribute("taskTools", toolRepo.findByTasks(task));
+    @GetMapping("/task/new/")
+    public String newTask(Model model){
+        Task newTask = new Task();
+        model.addAttribute("task", newTask);
         model.addAttribute("taskTools", toolRepo.findAll());
         return "taskEdit";
     }
@@ -124,10 +133,32 @@ public class BusinessInfoController {
     @PostMapping("/problem/edit")
     public String saveNewProblem(
             @RequestParam(value = "problemName") String problemName,
+            @RequestParam(value = "problemId", required = false) String idp,
             @RequestParam Map<String, String> form){
 
+
         Problem newProblem = new Problem(problemName);
-        newProblem.setName(problemName);
+
+
+        if (idp != null && idp != ""){
+            List<Problem> byId = problemRepo.findById(Integer.parseInt(idp));
+            newProblem.setId(byId.get(0).getId());
+        }
+
+        if (problemName != null && problemName != ""){
+            List<Problem> problems = problemRepo.findByName(problemName);
+            if(problems.size() == 0){
+                newProblem.setName(problemName);
+            }
+            else {
+                return "redirect:/businessInfo";
+            }
+        }
+        else{
+//            System.out.println("null name");
+            return "redirect:/businessInfo";
+        }
+
         List<Task> tasks = new ArrayList<>();
 
         for (Map.Entry entry: form.entrySet()) {
@@ -142,8 +173,6 @@ public class BusinessInfoController {
             newProblem.getTasks().clear();
         }
 
-
-
         newProblem.setTasks(tasks);
         problemRepo.save(newProblem);
 
@@ -152,29 +181,99 @@ public class BusinessInfoController {
         //return "addproblem";
     }
 
-    @PostMapping("/task/")
-    public String saveTask(@RequestParam(value = "taskName") String taskName,
-                           @RequestParam(value = "taskId") Task newTask,
-                           @RequestParam Map<String, String> form){
+//    @PostMapping("/task/edit")
+//    public String saveTask(@RequestParam(value = "taskName") String taskName,
+//                           @RequestParam(value = "taskId", required = false) String idt,
+//                           @RequestParam Map<String, String> form){
+//
+//        Task newTask = new Task(taskName);
+//        if (idt != null){
+//            List<Problem> byId = problemRepo.findById(Integer.parseInt(idt));
+//            newTask.setId(byId.get(0).getId());
+//        }
+//
+//        newTask.setName(taskName);//TODO req uniq name
+//        List<Tool> tools = new ArrayList<>();
+//
+//        for (Map.Entry entry: form.entrySet()) {
+//            String key = entry.getKey().toString();
+//            String value = entry.getValue().toString();
+//            System.out.println(key + " " + value);
+//            if (value.equals("on")){
+//                List<Tool> tt = toolRepo.findById(Integer.parseInt(key));
+//                tools.add(tt.get(0));
+//            }
+//        }
+//
+//        if(newTask.getTools() != null) {
+//            newTask.getTools().clear();
+//        }
+//
+//        newTask.setTools(tools);
+//        taskRepo.save(newTask);
+////        model.addAttribute("message", "Task edited");
+//
+//        return "redirect:/businessInfo";
+//    }
 
-        newTask.setName(taskName);
+    @PostMapping("/task/edit")
+    public String saveNewTask(
+            @RequestParam(value = "taskName") String taskName,
+            @RequestParam(value = "taskId", required = false) String idt,
+            @RequestParam Map<String, String> form){
+
+        Task newTask = new Task(taskName);
+
+        if (idt != null && idt != ""){
+            List<Task> byId = taskRepo.findById(Integer.parseInt(idt));
+            newTask.setId(byId.get(0).getId());
+        }
+
+        if (taskName != null && taskName != ""){
+            List<Task> tasks = taskRepo.findByName(taskName);
+            if(tasks.size() == 0){
+                newTask.setName(taskName);
+            }
+            else {
+                return "redirect:/businessInfo";
+            }
+        }
+
+
         List<Tool> tools = new ArrayList<>();
+
         for (Map.Entry entry: form.entrySet()) {
             String key = entry.getKey().toString();
             String value = entry.getValue().toString();
-            System.out.println(key + " " + value);
-            if (value.equals("on")){
+            if (value.equals("on")) {
                 List<Tool> tt = toolRepo.findById(Integer.parseInt(key));
                 tools.add(tt.get(0));
             }
         }
-
-        if(newTask.getTools() != null) {
+        if(newTask.getTools() != null){
             newTask.getTools().clear();
         }
+
         newTask.setTools(tools);
         taskRepo.save(newTask);
-//        model.addAttribute("message", "Task edited");
+
+        return "redirect:/businessInfo";
+        //return "redirect:/";
+        //return "addtask";
+    }
+
+    @GetMapping("/problem/delete/{problem}")
+    public String deleteProblem(@PathVariable Problem problem
+    ){
+        problemRepo.delete(problem);
+
+        return "redirect:/businessInfo";
+    }
+
+    @GetMapping("/task/delete/{task}")
+    public String deleteTask(@PathVariable Task task
+    ){
+        taskRepo.delete(task);
 
         return "redirect:/businessInfo";
     }
