@@ -1,6 +1,10 @@
 <#import "parts/common.ftl" as c>
 
 <@c.page>
+<a href="/">Main page</a>
+<br/>
+
+<p>
 <div>Список проблем</div>
     <#list problems as problem>
     <div>
@@ -16,7 +20,10 @@
         No problems
     </#list>
 <a href="/businessInfo/problem/new/">Add new problem</a>
+</p>
 
+
+<p>
 <div>Список задач</div>
     <#list tasks as task>
 <div>
@@ -28,6 +35,21 @@
 No tasks
     </#list>
 <a href="/businessInfo/task/new/">Add new task</a>
+</p>
+
+<p>
+<div>Список инструментов</div>
+    <#list tools as tool>
+<div>
+    <b>${tool.name}</b>
+    <a href="/businessInfo/tool/edit/${tool.id}">edit</a>
+    <a href="/businessInfo/tool/delete/${tool.id}">delete</a>
+</div>
+    <#else >
+No tools
+    </#list>
+<a href="/businessInfo/tool/new/">Add new tool</a>
+</p>
 
     ${message?if_exists}
 

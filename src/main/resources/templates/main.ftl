@@ -12,7 +12,8 @@
     <div>
         <a href="/login">Login page</a>
         <a href="/list">Problems list</a>
-        <a href="/businessInfo">Admin list</a>
+        <a href="/businessInfo">Business Info</a>
+        <a href="/expertList">Expert list</a>
         <span><a href="/user">Userlist</a></span>
     </div>
 </@c.page>

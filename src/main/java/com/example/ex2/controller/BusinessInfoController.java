@@ -1,7 +1,5 @@
 package com.example.ex2.controller;
 
-
-import antlr.StringUtils;
 import com.example.ex2.domain.Problem;
 import com.example.ex2.domain.Task;
 import com.example.ex2.domain.Tool;
@@ -36,6 +34,7 @@ public class BusinessInfoController {
 //        Problem p = new Problem();
         model.addAttribute("problems", problemRepo.findAll());
         model.addAttribute("tasks", taskRepo.findAll());
+        model.addAttribute("tools", toolRepo.findAll());
 //        model.addAttribute("newProblem", p);
         return "businessInfo";
     }
@@ -58,6 +57,14 @@ public class BusinessInfoController {
         model.addAttribute("taskTools", toolRepo.findAll());
         return "taskEdit";
     }
+
+    @GetMapping("/tool/edit/{tool}")
+    public String toolEditForm(Model model,
+                               @PathVariable Tool tool){
+        model.addAttribute("tool", tool);
+        return "toolEdit";
+    }
+
     @GetMapping("/problem/new/")
     public String newProblem(Model model){
 //        String action = "new";
@@ -77,58 +84,12 @@ public class BusinessInfoController {
         return "taskEdit";
     }
 
-
-
-//    @PostMapping("/problem/edit")
-//    public String saveProblem(
-//                              @RequestParam(value = "problemName", required = false) String problemName,
-//                              @RequestParam(value = "problemId", required = false) Problem newProblem,
-//                              @RequestParam Map<String, String> form){
-//
-//        newProblem.setName(problemName);
-//        List<Task> tasks = new ArrayList<>();
-//
-////        Set<String> t = new HashSet<>();
-//
-//        for (Map.Entry entry: form.entrySet()) {
-//            String key = entry.getKey().toString();
-//            String value = entry.getValue().toString();
-////            System.out.println(key + " " + value);
-//            if (value.equals("on")){
-////                t.add(key);
-//                List<Task> tt = taskRepo.findById(Integer.parseInt(key));
-//                tasks.add(tt.get(0));
-//            }
-////действия с ключом и значением
-//        }
-//
-////        form.forEach((k, v) -> System.out.println(k + " " + v));
-//
-////                if(newProblem.getTasks() != null){
-////            newProblem.getTasks().clear();
-////        }
-//        newProblem.getTasks().clear();
-//
-//
-//
-////        for (String key : t){
-////
-////            List<Task> tt = taskRepo.findById(Integer.parseInt(key));
-//////            System.out.println(tt.size());
-////            tasks.add(tt.get(0));
-////
-////        }
-//
-////            System.out.println(tasks.toString());
-//
-//        newProblem.setTasks(tasks);
-//        problemRepo.save(newProblem);
-////        model.addAttribute("message", "Problem edited");
-//
-//        return "redirect:/businessInfo";
-//        //return "redirect:/";
-//        //return "addproblem";
-//    }
+    @GetMapping("/tool/new/")
+    public String newTool(Model model){
+        Tool newTool = new Tool();
+        model.addAttribute("tool", newTool);
+        return "toolEdit";
+    }
 
     @PostMapping("/problem/edit")
     public String saveNewProblem(
@@ -145,19 +106,19 @@ public class BusinessInfoController {
             newProblem.setId(byId.get(0).getId());
         }
 
-        if (problemName != null && problemName != ""){
-            List<Problem> problems = problemRepo.findByName(problemName);
-            if(problems.size() == 0){
-                newProblem.setName(problemName);
-            }
-            else {
-                return "redirect:/businessInfo";
-            }
-        }
-        else{
-//            System.out.println("null name");
-            return "redirect:/businessInfo";
-        }
+//        if (problemName != null && problemName != ""){
+//            List<Problem> problems = problemRepo.findByName(problemName);
+//            if(problems.size() == 0){
+//                newProblem.setName(problemName);
+//            }
+//            else {
+//                return "redirect:/businessInfo";
+//            }
+//        }
+//        else{
+////            System.out.println("null name");
+//            return "redirect:/businessInfo";
+//        }
 
         List<Task> tasks = new ArrayList<>();
 
@@ -181,41 +142,6 @@ public class BusinessInfoController {
         //return "addproblem";
     }
 
-//    @PostMapping("/task/edit")
-//    public String saveTask(@RequestParam(value = "taskName") String taskName,
-//                           @RequestParam(value = "taskId", required = false) String idt,
-//                           @RequestParam Map<String, String> form){
-//
-//        Task newTask = new Task(taskName);
-//        if (idt != null){
-//            List<Problem> byId = problemRepo.findById(Integer.parseInt(idt));
-//            newTask.setId(byId.get(0).getId());
-//        }
-//
-//        newTask.setName(taskName);//TODO req uniq name
-//        List<Tool> tools = new ArrayList<>();
-//
-//        for (Map.Entry entry: form.entrySet()) {
-//            String key = entry.getKey().toString();
-//            String value = entry.getValue().toString();
-//            System.out.println(key + " " + value);
-//            if (value.equals("on")){
-//                List<Tool> tt = toolRepo.findById(Integer.parseInt(key));
-//                tools.add(tt.get(0));
-//            }
-//        }
-//
-//        if(newTask.getTools() != null) {
-//            newTask.getTools().clear();
-//        }
-//
-//        newTask.setTools(tools);
-//        taskRepo.save(newTask);
-////        model.addAttribute("message", "Task edited");
-//
-//        return "redirect:/businessInfo";
-//    }
-
     @PostMapping("/task/edit")
     public String saveNewTask(
             @RequestParam(value = "taskName") String taskName,
@@ -223,21 +149,23 @@ public class BusinessInfoController {
             @RequestParam Map<String, String> form){
 
         Task newTask = new Task(taskName);
+//        Task newTask = new Task();
 
         if (idt != null && idt != ""){
             List<Task> byId = taskRepo.findById(Integer.parseInt(idt));
             newTask.setId(byId.get(0).getId());
         }
 
-        if (taskName != null && taskName != ""){
-            List<Task> tasks = taskRepo.findByName(taskName);
-            if(tasks.size() == 0){
-                newTask.setName(taskName);
-            }
-            else {
-                return "redirect:/businessInfo";
-            }
-        }
+//        if (taskName != null && taskName != ""){
+//            List<Task> tasks = taskRepo.findByName(taskName);
+//            if(tasks.size() == 0 || tasks.get(0).getId() == Integer.parseInt(idt)){
+//                newTask.setName(taskName);
+//            }
+//            else {
+//                System.out.println(2);
+//                return "redirect:/businessInfo";
+//            }
+//        }
 
 
         List<Tool> tools = new ArrayList<>();
@@ -262,6 +190,34 @@ public class BusinessInfoController {
         //return "addtask";
     }
 
+    @PostMapping("/tool/edit")
+    public String saveNewTool(
+            @RequestParam(value = "toolName") String toolName,
+            @RequestParam(value = "toolId", required = false) String idt,
+            @RequestParam Map<String, String> form){
+
+        Tool newTool = new Tool(toolName);
+
+        if (idt != null && idt != ""){
+            List<Tool> byId = toolRepo.findById(Integer.parseInt(idt));
+            newTool.setId(byId.get(0).getId());
+        }
+
+//        if (toolName != null && toolName != ""){
+//            List<Tool> tools = toolRepo.findByName(toolName);
+//            if(tools.size() == 0){
+//                newTool.setName(toolName);
+//            }
+//            else {
+//                return "redirect:/businessInfo";
+//            }
+//        }
+
+        toolRepo.save(newTool);
+        return "redirect:/businessInfo";
+    }
+
+
     @GetMapping("/problem/delete/{problem}")
     public String deleteProblem(@PathVariable Problem problem
     ){
@@ -277,5 +233,15 @@ public class BusinessInfoController {
 
         return "redirect:/businessInfo";
     }
+
+    @GetMapping("/tool/delete/{tool}")
+    public String deleteTool(@PathVariable Tool tool
+    ){
+        toolRepo.delete(tool);
+
+        return "redirect:/businessInfo";
+    }
+
+    //TODO uniq name check
 
 }

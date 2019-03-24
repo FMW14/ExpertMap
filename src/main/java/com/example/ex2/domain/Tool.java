@@ -1,12 +1,18 @@
 package com.example.ex2.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.ManyToMany;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.NaturalIdCache;
+
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+
 
 @Entity
+@NaturalIdCache
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Tool {
 
     @javax.persistence.Id
@@ -17,6 +23,26 @@ public class Tool {
 
     @ManyToMany(mappedBy = "tools")
     private List<Task> tasks;
+
+//    @ManyToMany
+//    private List<Expert> experts;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tool", fetch = FetchType.EAGER, orphanRemoval = true)
+//    private Set<ExpertTool> expertTools;
+    private List<ExpertTool> expertTools = new ArrayList<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tool tool = (Tool) o;
+        return Objects.equals(name, tool.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
 
     public Tool() {
     }
@@ -48,4 +74,21 @@ public class Tool {
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
     }
+
+
+    public List<ExpertTool> getExpertTools() {
+        return expertTools;
+    }
+
+    public void setExpertTools(List<ExpertTool> expertTools) {
+        this.expertTools = expertTools;
+    }
+
+//    public List<Expert> getExperts() {
+//        return experts;
+//    }
+//
+//    public void setExperts(List<Expert> experts) {
+//        this.experts = experts;
+//    }
 }

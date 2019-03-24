@@ -9,4 +9,9 @@ public enum Role implements GrantedAuthority {
         return name();
     }
 
+//ADMIN Админ
+//MOD1 Редактор
+//MOD2 Редактор экспертов
+//USER Пользователь
+
 }
