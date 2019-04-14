@@ -1,17 +1,16 @@
 package com.example.ex2.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
+//@NamedQuery(name = "User.findByEmailAddress",
+//        query = "select  from User u where u.emailAddress = ?1")
 public class Problem {
 
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer Id;
+    private Integer id;
 
     private String name;
 
@@ -34,11 +33,11 @@ public class Problem {
     }
 
     public Integer getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Integer id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getName() {

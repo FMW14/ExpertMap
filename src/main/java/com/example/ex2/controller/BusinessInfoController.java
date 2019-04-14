@@ -30,11 +30,15 @@ public class BusinessInfoController {
 //    private List<Task> tasks =
 
     @GetMapping
-    public String businessInfo(Model model){
+    public String businessInfo(@RequestParam(required = false, defaultValue = "") String filter,
+                               @RequestParam(required = false, defaultValue = "") String sort,
+                               Model model){
 //        Problem p = new Problem();
         model.addAttribute("problems", problemRepo.findAll());
         model.addAttribute("tasks", taskRepo.findAll());
         model.addAttribute("tools", toolRepo.findAll());
+        model.addAttribute("filter", filter);
+        model.addAttribute("sort", sort);
 //        model.addAttribute("newProblem", p);
         return "businessInfo";
     }
@@ -240,6 +244,13 @@ public class BusinessInfoController {
         toolRepo.delete(tool);
 
         return "redirect:/businessInfo";
+    }
+
+    @GetMapping("sort")
+    public String sort(Model model
+    ){
+        model.addAttribute("problems", problemRepo.findAllByOrderByIdDesc());
+        return "businessInfo";
     }
 
     //TODO uniq name check

@@ -3,7 +3,10 @@ package com.example.ex2.repos;
 import com.example.ex2.domain.Expert;
 import org.springframework.data.repository.CrudRepository;
 
-public interface ExpertRepo extends CrudRepository<Expert, Long> {
+import java.util.List;
 
+public interface ExpertRepo extends CrudRepository<Expert, Integer> {
+    List<Expert> findById(int i);
+    List<Expert> findByName(String s);
 
 }

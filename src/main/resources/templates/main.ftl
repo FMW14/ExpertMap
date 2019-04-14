@@ -1,12 +1,20 @@
 <#import "parts/common.ftl" as c>
 
 <@c.page>
-<div>
-    <form action="/logout" method="post">
-        <input type="submit" value="Sign Out"/>
-        <input type="hidden" name="_csrf" value="{{_csrf.token}}" />
-    </form>
-</div>
+<form action="/logout" method="post">
+    <input type="hidden" name="_csrf" value="${_csrf.token}" />
+    <#--<button type="submit"><#if user??>Sign Out<#else>Log in</#if></button>-->
+    <button type="submit">Sign Out</button>
+</form>
+
+<#--<div>-->
+    <#--<form action="/logout" method="post">-->
+        <#--<input type="submit" value="Sign Out"/>-->
+        <#--<input type="hidden" name="_csrf" value="{{_csrf.token}}" />-->
+    <#--</form>-->
+<#--</div>-->
+
+
 <#--<div align="center">Hello</div>-->
 <div>Hello</div>
     <div>
