@@ -126,7 +126,7 @@ public class BusinessInfoController {
 
         List<Task> tasks = new ArrayList<>();
 
-        for (Map.Entry entry: form.entrySet()) {
+        for (Map.Entry entry : form.entrySet()) {
             String key = entry.getKey().toString();
             String value = entry.getValue().toString();
             if (value.equals("on")) {
@@ -174,7 +174,7 @@ public class BusinessInfoController {
 
         List<Tool> tools = new ArrayList<>();
 
-        for (Map.Entry entry: form.entrySet()) {
+        for (Map.Entry entry : form.entrySet()) {
             String key = entry.getKey().toString();
             String value = entry.getValue().toString();
             if (value.equals("on")) {
