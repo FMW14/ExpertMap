@@ -39,66 +39,32 @@ public class ExpertController {
     public String expertEditForm(Model model,
                                  @PathVariable Expert expert){
         model.addAttribute("expert", expert);
-        model.addAttribute("tools", toolRepo.findAll());
-        int a = expert.getId();
+
+        Long a = expert.getId(); //Без этой хуйни не работает
 
         List<ToolRate> rate = new ArrayList<>();
-        List<ToolRate> arate = new ArrayList<>();
+        List<ToolRate> curRate = new ArrayList<>();
 
+        //Ебовая конструкция для проверки количества текущих инструментов
         for(Tool t : toolRepo.findAll()){
-            ToolRate tr = new ToolRate(t.getName());
-            rate.add(tr);
+            rate.add(new ToolRate(t.getName(), 0));
         }
 
-//        for(ExpertTool et : expert.getExpertTools()){
-//            ToolRate tr = new ToolRate(et.getTool().getName(), et.getRating());
-//            rate.add(tr);
-//        }
-//        for(ExpertTool et : expert.getExpertTools()){
-//            ToolRate tr = new ToolRate(et.getTool().getName(), et.getRating());
-//            arate.add(tr);
-//        }
-//
-//        for(ToolRate tr : arate){
-//            if(tr.getRate() != )
-//
-//        }
+        for(ExpertTool et : expert.getExpertTools()){
+            curRate.add(
+                    new ToolRate(
+                            et.getTool().getName(), et.getRating()));
+        }
+
+        for(ToolRate tr : rate){
+            for(ToolRate ctr : curRate){
+                if(tr.getToolname() == ctr.getToolname()){
+                    tr.setRate(ctr.getRate());
+                }
+            }
+        }
 
         model.addAttribute("rate", rate);
-
-//        if (expert.getExpertTools() != null && expert.getExpertTools().size() != 0){
-//            for(ToolRate tr : rate){
-//                if
-//
-//            }
-//        }
-
-
-//        List<Integer> rate = new ArrayList<>();
-//        for (int i = 0; i < 6; i++){
-//            rate.add(i);
-//        }
-//
-//        List<ToolRate> rat = new ArrayList<>();
-//
-//        for(Tool t : toolRepo.findAll()){
-//            for(ExpertTool et : expert.getExpertTools()){
-//                if(t.getId().equals(et.getTool().getId())){
-//                    ToolRate tr = new ToolRate(et.getTool().getName(), et.getRating());
-//                    rat.add(tr);
-//                }
-//                else {
-//                    ToolRate tr = new ToolRate(t.getName(), 0);
-//                    rat.add(tr);
-//                }
-//
-//            }
-//        }
-//
-//
-//        model.addAttribute("rat", rat);
-//        model.addAttribute("rate", rate);
-
         return "expertEdit";
     }
 
@@ -106,7 +72,6 @@ public class ExpertController {
     public String newExpert(Model model){
         Expert newExpert = new Expert();
         model.addAttribute("expert", newExpert);
-        model.addAttribute("tools", toolRepo.findAll());
 
         List<ToolRate> rate = new ArrayList<>();
         for(Tool t : toolRepo.findAll()){
@@ -144,8 +109,15 @@ public class ExpertController {
         newExpert.setPatronymic(expertPatronymic);
 
         if (id != null && id != ""){
-            List<Expert> byId = expertRepo.findById(Integer.parseInt(id));
-            newExpert.setId(byId.get(0).getId());
+//            Optional<Expert> byId = expertRepo.findById(Long.parseLong(id));
+//            newExpert.setId(byId.get(0).getId());
+//            Optional<Expert> byId = Optional.of(expertRepo.findById(Long.parseLong(id)));  JOPA
+
+            Expert newExpert2 = expertRepo.findById(Long.parseLong(id)).get();
+            newExpert.setId(newExpert2.getId());
+
+//            Optional<Expert> byId = expertRepo.findById(Long.parseLong(id));
+//            newExpert.setId(expertRepo.findById(Long.parseLong(id)).map(expert -> expert.getId()).orElseThrow(() -> new Exception()));
         }
 
         List<Tool> tools = toolRepo.findAll();

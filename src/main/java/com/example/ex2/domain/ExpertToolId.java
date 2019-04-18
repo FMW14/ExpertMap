@@ -9,7 +9,7 @@ import java.util.Objects;
 public class ExpertToolId implements Serializable {
 
     @Column(name = "expert_id")
-    private Integer expertId;
+    private Long expertId;
 
     @Column(name = "tool_id")
     private Integer toolId;
@@ -17,7 +17,7 @@ public class ExpertToolId implements Serializable {
     private ExpertToolId() {}
 
     public ExpertToolId(
-            Integer expertId,
+            Long expertId,
             Integer toolId) {
         this.expertId = expertId;
         this.toolId = toolId;
@@ -40,11 +40,20 @@ public class ExpertToolId implements Serializable {
         return Objects.hash(expertId, toolId);
     }
 
-    public Integer getExpertId() {
+//    public Integer getExpertId() {
+//        return expertId;
+//    }
+//
+//    public void setExpertId(Integer expertId) {
+//        this.expertId = expertId;
+//    }
+
+
+    public Long getExpertId() {
         return expertId;
     }
 
-    public void setExpertId(Integer expertId) {
+    public void setExpertId(Long expertId) {
         this.expertId = expertId;
     }
 

@@ -10,7 +10,7 @@ import java.util.Set;
 public class Expert {
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer Id;
+    private Long Id;
 
     private String name;
 
@@ -49,11 +49,11 @@ public class Expert {
         this.name = name;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return Id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         Id = id;
     }
 

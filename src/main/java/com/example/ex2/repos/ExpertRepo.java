@@ -5,8 +5,8 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface ExpertRepo extends CrudRepository<Expert, Integer> {
-    List<Expert> findById(int i);
+public interface ExpertRepo extends CrudRepository<Expert, Long> {
+//    List<Expert> findById(Long i);
     List<Expert> findByName(String s);
 
 }

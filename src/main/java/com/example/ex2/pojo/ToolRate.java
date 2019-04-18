@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ToolRate {
+    //класс для отображения на фронте
     private String toolname;
     private Integer rate;
 
