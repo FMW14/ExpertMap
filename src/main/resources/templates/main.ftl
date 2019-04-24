@@ -16,12 +16,28 @@
 
 
 <#--<div align="center">Hello</div>-->
-<div>Hello</div>
+<#--<div>Hello</div>-->
     <div>
         <a href="/login">Login page</a>
-        <a href="/list">Problems list</a>
+        <#--<a href="/solution">Solution</a>-->
         <a href="/businessInfo">Business Info</a>
         <a href="/expertList">Expert list</a>
         <span><a href="/user">Userlist</a></span>
     </div>
+
+<#--<div id="app">-->
+    <#--{{ msg }}-->
+<#--</div>-->
+<#--<script>-->
+<#--var app = new Vue({-->
+    <#--el: '#app',-->
+    <#--data: {-->
+        <#--msg: 'Привет, Vue!'-->
+    <#--}-->
+<#--})-->
+<#--</script>-->
+
+<#--<script src="/static/js/main.js"></script>-->
+<#--<script type="text/javascript" src="/static/js/12.js"></script>-->
+<#--<script type="text/javascript" src="/js/12.js"></script>-->
 </@c.page>

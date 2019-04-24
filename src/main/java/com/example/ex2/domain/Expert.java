@@ -1,5 +1,7 @@
 package com.example.ex2.domain;
 
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,9 +9,11 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
+@EnableTransactionManagement
 public class Expert {
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
     private String name;
