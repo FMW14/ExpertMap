@@ -4,6 +4,7 @@ import com.example.ex2.domain.Role;
 import com.example.ex2.domain.User;
 import com.example.ex2.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,8 @@ import java.util.Map;
 public class RegistrationController {
     @Autowired
     private UserRepo userRepo;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/registration")
     public String registration(){
@@ -32,6 +35,8 @@ public class RegistrationController {
 
         user.setActive(true); // TODO FALSE BY DEFAULT
         user.setRoles(Collections.singleton(Role.USER));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
 
         if (user.getUsername() != null){
             userRepo.save(user);
