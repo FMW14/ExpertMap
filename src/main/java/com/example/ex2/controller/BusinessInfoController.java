@@ -18,7 +18,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/businessInfo")
-@PreAuthorize("hasAuthority('MOD1')")
+@PreAuthorize("hasAuthority('USER')")
 public class BusinessInfoController {
     @Autowired
     private ProblemRepo problemRepo;
@@ -43,6 +43,7 @@ public class BusinessInfoController {
         return "businessInfo";
     }
 
+    @PreAuthorize("hasAuthority('MOD1')")
     @GetMapping("/problem/edit/{problem}")
     public String problemEditForm(Model model,
                                   @PathVariable Problem problem
@@ -53,6 +54,7 @@ public class BusinessInfoController {
         return "problemEdit";
     }
 
+    @PreAuthorize("hasAuthority('MOD1')")
     @GetMapping("/task/edit/{task}")
     public String taskEditForm(Model model,
                                @PathVariable Task task){
@@ -62,6 +64,7 @@ public class BusinessInfoController {
         return "taskEdit";
     }
 
+    @PreAuthorize("hasAuthority('MOD1')")
     @GetMapping("/tool/edit/{tool}")
     public String toolEditForm(Model model,
                                @PathVariable Tool tool){
@@ -69,6 +72,7 @@ public class BusinessInfoController {
         return "toolEdit";
     }
 
+    @PreAuthorize("hasAuthority('MOD1')")
     @GetMapping("/problem/new/")
     public String newProblem(Model model){
 //        String action = "new";
@@ -80,6 +84,7 @@ public class BusinessInfoController {
         return "problemEdit";
     }
 
+    @PreAuthorize("hasAuthority('MOD1')")
     @GetMapping("/task/new/")
     public String newTask(Model model){
         Task newTask = new Task();
@@ -88,6 +93,7 @@ public class BusinessInfoController {
         return "taskEdit";
     }
 
+    @PreAuthorize("hasAuthority('MOD1')")
     @GetMapping("/tool/new/")
     public String newTool(Model model){
         Tool newTool = new Tool();
@@ -95,6 +101,7 @@ public class BusinessInfoController {
         return "toolEdit";
     }
 
+    @PreAuthorize("hasAuthority('MOD1')")
     @PostMapping("/problem/edit")
     public String saveNewProblem(
             @RequestParam(value = "problemName") String problemName,
@@ -146,6 +153,7 @@ public class BusinessInfoController {
         //return "addproblem";
     }
 
+    @PreAuthorize("hasAuthority('MOD1')")
     @PostMapping("/task/edit")
     public String saveNewTask(
             @RequestParam(value = "taskName") String taskName,
@@ -194,6 +202,7 @@ public class BusinessInfoController {
         //return "addtask";
     }
 
+    @PreAuthorize("hasAuthority('MOD1')")
     @PostMapping("/tool/edit")
     public String saveNewTool(
             @RequestParam(value = "toolName") String toolName,
@@ -222,6 +231,7 @@ public class BusinessInfoController {
     }
 
 
+    @PreAuthorize("hasAuthority('MOD1')")
     @GetMapping("/problem/delete/{problem}")
     public String deleteProblem(@PathVariable Problem problem
     ){
@@ -230,6 +240,7 @@ public class BusinessInfoController {
         return "redirect:/businessInfo";
     }
 
+    @PreAuthorize("hasAuthority('MOD1')")
     @GetMapping("/task/delete/{task}")
     public String deleteTask(@PathVariable Task task
     ){
@@ -238,6 +249,7 @@ public class BusinessInfoController {
         return "redirect:/businessInfo";
     }
 
+    @PreAuthorize("hasAuthority('MOD1')")
     @GetMapping("/tool/delete/{tool}")
     public String deleteTool(@PathVariable Tool tool
     ){

@@ -8,10 +8,10 @@ import java.util.Objects;
 @Embeddable
 public class ExpertToolId implements Serializable {
 
-    @Column(name = "expert_id")
+    @Column(name = "expert_id", columnDefinition = "serial")
     private Long expertId;
 
-    @Column(name = "tool_id")
+    @Column(name = "tool_id", columnDefinition = "serial")
     private Integer toolId;
 
     private ExpertToolId() {}

@@ -11,7 +11,8 @@ import java.util.Set;
 @Table(name = "usr")
 public class User implements UserDetails {
     @javax.persistence.Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", columnDefinition = "serial")
     private Long Id;
     private String username;
     private String password;

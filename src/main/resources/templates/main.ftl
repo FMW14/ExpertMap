@@ -25,9 +25,9 @@
         <span><a href="/user">Userlist</a></span>
     </div>
 
-<#--<div id="app">-->
-    <#--{{ msg }}-->
-<#--</div>-->
+<div id="app">
+    {{ msg }}
+</div>
 <#--<script>-->
 <#--var app = new Vue({-->
     <#--el: '#app',-->
@@ -39,5 +39,5 @@
 
 <#--<script src="/static/js/main.js"></script>-->
 <#--<script type="text/javascript" src="/static/js/12.js"></script>-->
-<#--<script type="text/javascript" src="/js/12.js"></script>-->
+<script type="application/javascript" src="/js/12.js"></script>
 </@c.page>

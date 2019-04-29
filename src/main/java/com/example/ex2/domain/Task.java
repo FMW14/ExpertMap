@@ -8,7 +8,8 @@ import java.util.Set;
 @Entity
 public class Task {
     @javax.persistence.Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", columnDefinition = "serial")
     private Integer Id;
 
     private String name;

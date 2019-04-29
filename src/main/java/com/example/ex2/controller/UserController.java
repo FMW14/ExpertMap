@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/user")
-@PreAuthorize("hasAuthority('ADMIN')")
+@PreAuthorize("hasAuthority('MOD1')")
 public class UserController {
     @Autowired
     private UserRepo userRepo;
@@ -34,12 +34,17 @@ public class UserController {
         return "userEdit";
     }
 
+    @PreAuthorize("hasAuthority('MOD1')")
     @PostMapping
     public String userSave(
             @RequestParam String username,
             @RequestParam Map<String, String> form,
             @RequestParam("userId") User user
     ){
+        if(username.equals("admin")){
+            return "redirect:/user";
+        }
+
         user.setUsername(username);
 
         Set<String> roles = Arrays.stream(Role.values()).
