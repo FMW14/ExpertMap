@@ -6,7 +6,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @EnableTransactionManagement
@@ -22,6 +21,14 @@ public class Expert {
 
     private String patronymic;
 
+    private String email;
+
+    private String phone;
+
+    private Boolean online;
+
+    private Boolean offline;
+
 
 //    @ManyToMany(mappedBy = "experts")
 //    private List<Tool> tools;
@@ -29,6 +36,19 @@ public class Expert {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "expert", fetch = FetchType.EAGER, orphanRemoval = true)
 //    private Set<ExpertTool> expertTools;
     private List<ExpertTool> expertTools = new ArrayList<>();
+
+    @ManyToMany
+    private List<Language> lang;
+
+    @OneToOne(fetch = FetchType.LAZY)
+//    @MapsId
+    @JoinColumn(name = "country_id", columnDefinition = "bigint")
+    private Country country;
+
+    @OneToOne(fetch = FetchType.LAZY)
+//    @MapsId
+    @JoinColumn(name = "city_id", columnDefinition = "bigint")
+    private City city;
 
     @Override
     public boolean equals(Object o) {
@@ -85,6 +105,38 @@ public class Expert {
         this.patronymic = patronymic;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Boolean getOnline() {
+        return online;
+    }
+
+    public void setOnline(Boolean online) {
+        this.online = online;
+    }
+
+    public Boolean getOffline() {
+        return offline;
+    }
+
+    public void setOffline(Boolean offline) {
+        this.offline = offline;
+    }
+
     public List<ExpertTool> getExpertTools() {
         return expertTools;
     }
@@ -93,7 +145,23 @@ public class Expert {
         this.expertTools = expertTools;
     }
 
-    //    public List<Tool> getTools() {
+    public List<Language> getLang() {
+        return lang;
+    }
+
+    public void setLang(List<Language> lang) {
+        this.lang = lang;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+//    public List<Tool> getTools() {
 //        return tools;
 //    }
 //

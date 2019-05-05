@@ -15,6 +15,8 @@ public class Problem {
 
     private String name;
 
+    private Boolean type;
+
 //    @ManyToMany
 //    @JoinTable(
 //            name = "prob_task",
@@ -31,6 +33,11 @@ public class Problem {
 
     public Problem(String name) {
         this.name = name;
+    }
+
+    public Problem(String name, Boolean type) {
+        this.name = name;
+        this.type = type;
     }
 
     public Integer getId() {
@@ -55,6 +62,14 @@ public class Problem {
 
     public void setTasks(List<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public Boolean getType() {
+        return type;
+    }
+
+    public void setType(Boolean type) {
+        this.type = type;
     }
 
     //    public Set<problemEdit.ftl> getProblems() {

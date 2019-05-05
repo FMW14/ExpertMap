@@ -3,7 +3,6 @@
 <@c.page>
 <a href="/">Main page</a>
 <br/>
-<a href="/businessInfo/sort">sort</a>
 
 <p>
 <div>Список проблем</div>

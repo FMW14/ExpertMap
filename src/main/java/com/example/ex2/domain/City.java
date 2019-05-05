@@ -10,14 +10,28 @@ public class City {
     @Column(name = "city_id", columnDefinition = "serial")
     private Long city_id;
 
-//    @Lob
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "country_id", columnDefinition = "bigint")
+    private Country country;
+
+    @OneToOne(mappedBy = "city", cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY, optional = false)
+    private Expert expert;
+
+    //    @Lob
     private String title_ru;
+    private String region;
+    private String area;
+
 
     public City() {
     }
 
-    public City(String title_ru, String title_en) {
+    public City(Country country, String title_ru, String region, String area) {
+        this.country = country;
         this.title_ru = title_ru;
+        this.region = region;
+        this.area = area;
     }
 
     public Long getId() {
@@ -36,4 +50,35 @@ public class City {
         this.title_ru = title_ru;
     }
 
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public Expert getExpert() {
+        return expert;
+    }
+
+    public void setExpert(Expert expert) {
+        this.expert = expert;
+    }
 }

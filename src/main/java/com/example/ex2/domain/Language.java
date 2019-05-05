@@ -1,6 +1,7 @@
 package com.example.ex2.domain;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "_lang")
@@ -10,6 +11,10 @@ public class Language {
     @Column(name = "id", columnDefinition = "serial")
     private Long Id;
     private String title_ru;
+
+    @ManyToMany(mappedBy = "lang")
+
+    private List<Expert> experts;
 
     public Language() {
     }
@@ -34,4 +39,11 @@ public class Language {
         this.title_ru = title_ru;
     }
 
+    public List<Expert> getExperts() {
+        return experts;
+    }
+
+    public void setExperts(List<Expert> experts) {
+        this.experts = experts;
+    }
 }

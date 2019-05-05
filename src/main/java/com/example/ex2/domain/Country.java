@@ -1,6 +1,8 @@
 package com.example.ex2.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "_countries")
@@ -12,7 +14,20 @@ public class Country {
     private String title_ru;
     private String title_en;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "country", fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<City> cities = new ArrayList<>();
+
+    @OneToOne(mappedBy = "country", cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY, optional = false)
+    private Expert expert;
+
     public Country() {
+    }
+
+    public Country(String title_ru, String title_en, List<City> cities) {
+        this.title_ru = title_ru;
+        this.title_en = title_en;
+        this.cities = cities;
     }
 
     public Country(String title_ru, String title_en) {
@@ -42,5 +57,21 @@ public class Country {
 
     public void setTitle_en(String title_en) {
         this.title_en = title_en;
+    }
+
+    public List<City> getCities() {
+        return cities;
+    }
+
+    public void setCities(List<City> cities) {
+        this.cities = cities;
+    }
+
+    public Expert getExpert() {
+        return expert;
+    }
+
+    public void setExpert(Expert expert) {
+        this.expert = expert;
     }
 }
