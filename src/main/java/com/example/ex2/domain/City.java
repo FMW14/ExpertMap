@@ -1,5 +1,7 @@
 package com.example.ex2.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,10 +14,12 @@ public class City {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id", columnDefinition = "bigint")
+    @JsonIgnore
     private Country country;
 
     @OneToOne(mappedBy = "city", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, optional = false)
+    @JsonIgnore
     private Expert expert;
 
     //    @Lob

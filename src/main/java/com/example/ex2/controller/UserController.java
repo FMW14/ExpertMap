@@ -36,7 +36,7 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('MOD1')")
     @PostMapping
-    public String userSave(
+    public String userEditRole(
             @RequestParam String username,
             @RequestParam Map<String, String> form,
             @RequestParam("userId") User user
@@ -45,7 +45,7 @@ public class UserController {
             return "redirect:/user";
         }
 
-        user.setUsername(username);
+//        user.setUsername(username);
 
         Set<String> roles = Arrays.stream(Role.values()).
                 map(Role::name).

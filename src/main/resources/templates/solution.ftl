@@ -1,8 +1,7 @@
 <#import "parts/common.ftl" as c>
-<#import "parts/login.ftl" as l>
+<#import "parts/loginold.ftl" as l>
 
 <@c.page>
-<a href="/">Main page</a>
 <br/>
 
 <p>
@@ -16,7 +15,7 @@
     </div>
 </p>
 
-<div>Выбор задач:</div>
+<div id="ts" style="visibility: hidden">Выбор задач:</div>
     <div>
     <#--<#list tasks as task>-->
         <#--<div>-->
@@ -29,30 +28,76 @@
         <#--</select>-->
     </div>
 
-<table id="tasks" class="tasks">
-    <tr>
-        <th>Name</th>
-    </tr>
-    <#list tasks as task>
-        <tr>
-            <td class="name">${task.name?capitalize}</td>
-            <td><div location="button-${task.id}" /></td>
-        </tr>
-    </#list>
+<table id="tasks" >
+    <#--<tr>-->
+        <#--<th>Name</th>-->
+    <#--</tr>-->
+    <#--<#list tasks as task>-->
+        <#--<tr>-->
+            <#--<td class="name">${task.name?capitalize}</td>-->
+            <#--<td><div location="button-${task.id}" /></td>-->
+        <#--</tr>-->
+    <#--</#list>-->
 </table>
 
-
-<div id="app">
-    {{ msg }}
-</div>
 <script>
-var app = new Vue({
-el: '#app',
-data: {
-msg: 'Привет, Vue!'
-}
-})
+    // $(document).ready(function () {
+    //     $("#gettools").click(function () {
+    //         // alert("clicked");
+    //         var val = $("#problemList").val();
+    //         $.ajax({
+    //             url : '/get_tasks',
+    //             data: { val : val },
+    //             success : function (data) {
+    //                 $("#results").html(data);
+    //             },
+    //             error : function () {
+    //                 alert("error");
+    //             }
+    //
+    //         })
+    //     })
+    //
+    // });
+
+    $(document).ready(function () {
+        $("#problemList").on('change', function () {
+        // $("#gettools").click(function () {
+            // alert("clicked");
+            var val = $("#problemList").val();
+            $.ajax({
+                url : '/api/get_tasks',
+                dataType: "json",
+                data: { val : val },
+                success : function (data) {
+                    var a = JSON.stringify(data);
+                    // console.log(a);
+                    var parsed = JSON.parse(a);
+
+                    $("#tasks tr").remove();
+                    $.each(parsed, function(i, item) {
+                        var $tr = $('<tr>').append(
+                                // $('<td>')
+                                $("<tr><td><input type='checkbox' name=item.id class=\"form-check-input\" /></td></tr>"),
+                                // $('<td>').text(item.id),
+                                $('<td>').text(item.name)
+                        ).appendTo('#tasks');
+                        // console.log($tr.wrap('<p>').html());
+                    });
+                    $("#ts").css("visibility", "visible");
+                },
+                error : function () {
+                    alert("error");
+                }
+
+            })
+        })
+
+    });
 </script>
-<#--<script src="/static/js/main.js"></script>-->
+
+
+<#--<p id="results">Тут будет выведен результат</p>-->
+    <#--<button id="gettools">Get tasks</button>-->
 
 </@c.page>

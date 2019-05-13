@@ -1,5 +1,6 @@
 package com.example.ex2.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.*;
@@ -34,20 +35,24 @@ public class Expert {
 //    private List<Tool> tools;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "expert", fetch = FetchType.EAGER, orphanRemoval = true)
+    @JsonIgnore
 //    private Set<ExpertTool> expertTools;
     private List<ExpertTool> expertTools = new ArrayList<>();
 
     @ManyToMany
+    @JsonIgnore
     private List<Language> lang;
 
     @OneToOne(fetch = FetchType.LAZY)
 //    @MapsId
     @JoinColumn(name = "country_id", columnDefinition = "bigint")
+    @JsonIgnore
     private Country country;
 
     @OneToOne(fetch = FetchType.LAZY)
 //    @MapsId
     @JoinColumn(name = "city_id", columnDefinition = "bigint")
+    @JsonIgnore
     private City city;
 
     @Override

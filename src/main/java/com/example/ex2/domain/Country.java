@@ -1,5 +1,7 @@
 package com.example.ex2.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +16,13 @@ public class Country {
     private String title_ru;
     private String title_en;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "country", fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "country", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonIgnore
     private List<City> cities = new ArrayList<>();
 
     @OneToOne(mappedBy = "country", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, optional = false)
+    @JsonIgnore
     private Expert expert;
 
     public Country() {

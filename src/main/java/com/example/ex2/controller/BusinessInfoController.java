@@ -29,6 +29,13 @@ public class BusinessInfoController {
 
 //    private List<Task> tasks =
 
+    @RequestMapping(value = "/gt", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Tool> getTools() {
+        return toolRepo.findAll();
+    }
+
+
     @GetMapping
     public String businessInfo(@RequestParam(required = false, defaultValue = "") String filter,
                                @RequestParam(required = false, defaultValue = "") String sort,

@@ -1,9 +1,11 @@
 package com.example.ex2.controller;
 
+import com.example.ex2.domain.Country;
 import com.example.ex2.domain.Expert;
 import com.example.ex2.domain.ExpertTool;
 import com.example.ex2.domain.Tool;
 import com.example.ex2.pojo.ToolRate;
+import com.example.ex2.repos.CountryRepo;
 import com.example.ex2.repos.ExpertRepo;
 import com.example.ex2.repos.ExpertToolRepo;
 import com.example.ex2.repos.ToolRepo;
@@ -27,6 +29,10 @@ public class ExpertController {
     private ToolRepo toolRepo;
     @Autowired
     private ExpertToolRepo expertToolRepo;
+    @Autowired
+    private CountryRepo countryRepo;
+
+
 
     @GetMapping
     public String ExpertList(Model model){
@@ -44,6 +50,8 @@ public class ExpertController {
 
         List<ToolRate> rate = new ArrayList<>();
         List<ToolRate> curRate = new ArrayList<>();
+        List<Country> countries = countryRepo.findAll();
+//        List<Country> countries = countryRepo.findAllOrderByTitleRu();
 
         //Ебовая конструкция для проверки количества текущих инструментов
         for(Tool t : toolRepo.findAll()){
@@ -64,6 +72,8 @@ public class ExpertController {
             }
         }
 
+
+        model.addAttribute("countries", countries);
         model.addAttribute("rate", rate);
         return "expertEdit";
     }

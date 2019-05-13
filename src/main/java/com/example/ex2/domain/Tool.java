@@ -1,5 +1,6 @@
 package com.example.ex2.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.NaturalIdCache;
 
@@ -23,12 +24,14 @@ public class Tool {
     private String name;
 
     @ManyToMany(mappedBy = "tools")
+    @JsonIgnore
     private List<Task> tasks;
 
 //    @ManyToMany
 //    private List<Expert> experts;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tool", fetch = FetchType.EAGER, orphanRemoval = true)
+    @JsonIgnore
 //    private Set<ExpertTool> expertTools;
     private List<ExpertTool> expertTools = new ArrayList<>();
 
