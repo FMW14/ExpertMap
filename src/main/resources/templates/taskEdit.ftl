@@ -1,20 +1,34 @@
 <#import "parts/common.ftl" as c>
 
 <@c.page>
-Edit task
+<div class="card mx-auto" style="max-width: 30rem;">
+    <h5 class="card-header">Edit task</h5>
+    <div class="card-body">
 
-<form action="/businessInfo/task/edit" method="post">
-    <input type="text" name="taskName" value="${task.name?if_exists}" />
+    <form action="/businessInfo/task/edit" method="post">
+    <input class="form-control mb-1"
+           type="text"
+           name="taskName"
+           placeholder="Enter the title"
+           value="${task.name?if_exists}"
+    />
+        <label class="card-text mb-0 mt-1">Select tools:</label>
     <#list taskTools as tool>
     <#--<b>${tool.name}</b>-->
     <div>
-        <label><input type="checkbox" name="${tool.id}" ${task.tools?if_exists?seq_contains(tool)?string("checked", "")} />${tool.name}</label>
+        <input  type="checkbox" id="${tool.id}" name="${tool.id}" ${task.tools?if_exists?seq_contains(tool)?string("checked", "")} />
+        <label class="form-check-label" for="${tool.id}">${tool.name}</label>
     </div>
     <#else >
         No tools
     </#list>
     <input type="hidden" value="${task.id?if_exists}" name="taskId" />
     <input type="hidden" value="${_csrf.token}" name="_csrf" />
-    <button type="submit">Save</button>
-</form>
+        <div class="form-inline float-right">
+            <button type="submit" class="btn btn-primary mr-3" >Save</button>
+            <a href="/businessInfo" class="btn btn-outline-primary">Cancel</a>
+        </div>
+    </form>
+    </div>
+</div>
 </@c.page>

@@ -1,9 +1,8 @@
 <#import "parts/common.ftl" as c>
 
 <@c.page>
-<a href="/">Main page</a>
-<br/>
 List of users
+<a href="/user/add" class="btn btn-outline-primary">Add user</a>
 
 <table>
     <thead>

@@ -1,6 +1,7 @@
 package com.example.ex2.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.HashSet;

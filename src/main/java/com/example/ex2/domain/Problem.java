@@ -1,6 +1,7 @@
 package com.example.ex2.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Entity
@@ -13,6 +14,7 @@ public class Problem {
     @Column(name = "id", columnDefinition = "serial")
     private Integer id;
 
+//    @NotBlank(message = "Title cannot be empty")
     private String name;
 
     private Boolean type;

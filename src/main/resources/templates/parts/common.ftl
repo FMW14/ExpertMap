@@ -30,7 +30,7 @@
 </head>
 <body>
     <#include "navbar.ftl">
-<div class="container mt-3">
+<div class="container mt-3 mb-3">
     <#--<div class="row">-->
         <#--<div class="col">-->
 <#nested>

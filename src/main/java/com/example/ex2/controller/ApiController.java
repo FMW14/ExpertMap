@@ -1,13 +1,7 @@
 package com.example.ex2.controller;
 
-import com.example.ex2.domain.Country;
-import com.example.ex2.domain.Problem;
-import com.example.ex2.domain.Task;
-import com.example.ex2.domain.Tool;
-import com.example.ex2.repos.CountryRepo;
-import com.example.ex2.repos.ProblemRepo;
-import com.example.ex2.repos.TaskRepo;
-import com.example.ex2.repos.ToolRepo;
+import com.example.ex2.domain.*;
+import com.example.ex2.repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.security.Key;
+import java.util.*;
 
 @Controller
 //@RestController
@@ -25,6 +20,8 @@ public class ApiController {
 private ToolRepo toolRepo;
 @Autowired
 private CountryRepo countryRepo;
+//@Autowired
+//private CityRepo cityRepo;
 @Autowired
 private TaskRepo taskRepo;
 @Autowired
@@ -64,6 +61,53 @@ private ProblemRepo problemRepo;
         List<Task> t = taskRepo.findByProblems(problem);
         return t;
     }
+
+    @RequestMapping(value = "/get_tools", method = RequestMethod.GET, consumes="application/json")
+    @ResponseBody
+    public List<Tool> getTools(@RequestParam(value="selected[]") String[] selected) {
+//        System.out.println("got it");
+        Set<Tool> s = new LinkedHashSet<>();
+
+        for (int i = 0; i < selected.length; i++) {     //получение списка инструментов согласно выбранным задачам
+            Task task = taskRepo.findById(Integer.parseInt(selected[i])).get(0);
+            List<Tool> gotByTask = toolRepo.findByTasks(task);
+
+            for (Tool tl : gotByTask){
+                s.add(tl);
+            }
+        }
+
+        List<Tool> t = new ArrayList<>(s);
+        return t;
+    }
+
+//    @RequestMapping(value = "/get_tools", method = RequestMethod.GET, consumes="application/json")
+//    @ResponseBody
+//    public HashMap getTools(@RequestParam(value="selected[]") String[] selected) {
+//        System.out.println("got it");
+//        HashMap<String, Integer> map = new HashMap<>();
+//        Set<Tool> s = new LinkedHashSet<>();
+//
+//
+//        for (int i = 0; i < selected.length; i++) {
+//            Task task = taskRepo.findById(Integer.parseInt(selected[i])).get(0);
+//            List<Tool> gotByTask = toolRepo.findByTasks(task);
+//
+//            for (Tool tl : gotByTask){
+//                map.put(tl.getName(), tl.getId());
+//                s.add(tl);
+//            }
+//        }
+//
+//        return map;
+//    }
+
+//    @RequestMapping(value = "/get_cities", method = RequestMethod.GET)
+//    @ResponseBody
+//    public List<City> getCities(@RequestParam String val) {
+//        List<City> c = cityRepo.findByTitleruStartingWith(val);
+//        return c;
+//    }
 
 
 //    @RequestMapping(value = "/rest", method = RequestMethod.GET)

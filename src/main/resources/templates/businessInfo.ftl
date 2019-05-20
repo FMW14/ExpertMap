@@ -15,12 +15,12 @@
 
 <#--<div class="float-right form-inline"><a href="/businessInfo/problem/new/" class="btn btn-primary ml-5 ">Add new problem</a></div>-->
 <div class="mt-3 mb-3">
-    <table  class="table table-striped table-bordered table-hover"
+    <table class="table table-striped table-bordered table-hover"
             data-toggle="table">
         <thead class="thead-light">
         <tr>
             <th scope="col" data-sortable="true">Title</th>
-            <th scope="col" data-width="50" data-sortable="true">Type</th>
+            <#--<th scope="col" data-width="50" data-sortable="true">Type</th>-->
             <th scope="col" data-width="80" data-align="center" >Edit</th>
             <th scope="col" data-width="100" data-align="center" >Delete</th>
         </tr>
@@ -31,9 +31,9 @@
         <td scope="row">
             ${problem.name}
         </td>
-        <td scope="row">
-            ${problem.type?if_exists}
-        </td>
+        <#--<td scope="row">-->
+            <#--${problem.type.toString()?if_exists}-->
+        <#--</td>-->
         <td scope="row" align="center">
             <a href="/businessInfo/problem/edit/${problem.id}" class="btn btn-outline-primary btn-sm" >Edit</a>
         </td>

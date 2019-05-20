@@ -1,9 +1,9 @@
 <#import "parts/common.ftl" as c>
 
 <@c.page>
-<br/>
 <link href="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.css" rel="stylesheet">
 <script src="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.js"></script>
+
 
 <#--<script>-->
     <#--$(document).ready(function() {-->
@@ -39,6 +39,9 @@
         <th scope="col" data-sortable="true" data-field="name">Name</th>
         <th scope="col" data-sortable="true">Surname</th>
         <th scope="col" data-sortable="true">Patronymic</th>
+        <th scope="col" data-sortable="true">Country</th>
+        <th scope="col" data-sortable="true">City</th>
+        <th scope="col" data-sortable="true">Email</th>
         <th scope="col" data-width="80" data-align="center">Edit</th>
         <th scope="col" data-width="100" data-align="center">Delete</th>
     </tr>
@@ -49,6 +52,9 @@
         <td scope="row">${e.name}</td>
         <td scope="row">${e.surname}</td>
         <td scope="row">${e.patronymic}</td>
+        <td scope="row">${e.country.titleru?if_exists}</td>
+        <td scope="row">${e.city?if_exists}</td>
+        <td scope="row">${e.email?if_exists}</td>
         <td scope="row"><a href="/expertList/expert/edit/${e.id}" class="btn btn-outline-primary btn-sm">Edit</a></td>
         <td scope="row"><a href="/expertList/expert/delete/${e.id}" class="btn btn-outline-danger btn-sm">Delete</a></td>
         <#--<td><a href="/user/${user.id}">edit</a> </td>-->

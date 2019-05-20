@@ -1,14 +1,8 @@
 package com.example.ex2.controller;
 
-import com.example.ex2.domain.Country;
-import com.example.ex2.domain.Expert;
-import com.example.ex2.domain.ExpertTool;
-import com.example.ex2.domain.Tool;
+import com.example.ex2.domain.*;
 import com.example.ex2.pojo.ToolRate;
-import com.example.ex2.repos.CountryRepo;
-import com.example.ex2.repos.ExpertRepo;
-import com.example.ex2.repos.ExpertToolRepo;
-import com.example.ex2.repos.ToolRepo;
+import com.example.ex2.repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -31,8 +25,8 @@ public class ExpertController {
     private ExpertToolRepo expertToolRepo;
     @Autowired
     private CountryRepo countryRepo;
-
-
+    @Autowired
+    private LangRepo langRepo;
 
     @GetMapping
     public String ExpertList(Model model){
@@ -41,19 +35,24 @@ public class ExpertController {
         return "expertList";
     }
 
-    @GetMapping("/expert/edit/{expert}")
+    @GetMapping("/expert/edit/{value}")
     public String expertEditForm(Model model,
-                                 @PathVariable Expert expert){
+//                                 @PathVariable Expert expert
+                                 @PathVariable String value
+    ){
+//        Long a = expert.getId(); //Без этой хуйни не работает //теперь работает
+
+        Expert expert = expertRepo.findById(Long.parseLong(value)).get();
         model.addAttribute("expert", expert);
 
-        Long a = expert.getId(); //Без этой хуйни не работает
+
 
         List<ToolRate> rate = new ArrayList<>();
         List<ToolRate> curRate = new ArrayList<>();
-        List<Country> countries = countryRepo.findAll();
-//        List<Country> countries = countryRepo.findAllOrderByTitleRu();
+//        List<Country> countries = countryRepo.findAll();
 
-        //Ебовая конструкция для проверки количества текущих инструментов
+
+//        Ебовая конструкция для проверки количества текущих инструментов
         for(Tool t : toolRepo.findAll()){
             rate.add(new ToolRate(t.getName(), 0));
         }
@@ -72,13 +71,15 @@ public class ExpertController {
             }
         }
 
-
+        List<Language> languages = langRepo.findAllByOrderByTitleruAsc();
+        List<Country> countries = countryRepo.findAllByOrderByTitleruAsc();
         model.addAttribute("countries", countries);
+        model.addAttribute("langs", languages);
         model.addAttribute("rate", rate);
         return "expertEdit";
     }
 
-    @GetMapping("/expert/new/")
+    @GetMapping("/expert/new")
     public String newExpert(Model model){
         Expert newExpert = new Expert();
         model.addAttribute("expert", newExpert);
@@ -95,6 +96,11 @@ public class ExpertController {
 //            rate.add(i);
 //        }
 //        model.addAttribute("rate", rate);
+
+        List<Language> languages = langRepo.findAllByOrderByTitleruAsc();
+        List<Country> countries = countryRepo.findAllByOrderByTitleruAsc();
+        model.addAttribute("countries", countries);
+        model.addAttribute("langs", languages);
         return "expertEdit";
     }
 
@@ -111,12 +117,38 @@ public class ExpertController {
             @RequestParam(value = "expertName") String expertName,
             @RequestParam(value = "expertSurname") String expertSurname,
             @RequestParam(value = "expertPatronymic") String expertPatronymic,
+            @RequestParam(value = "expertCountry") Country expertCountry,
+            @RequestParam(value = "expertCity") String expertCity,
+            @RequestParam(value = "expertEmail") String expertEmail,
+            @RequestParam(value = "expertPhone") String expertPhone,
+            @RequestParam(value = "onlineAccess", required = false) String onlineAccess,
+            @RequestParam(value = "offlineAccess", required = false) String offlineAccess,
             @RequestParam(value = "expertId", required = false) String id,
             @RequestParam Map<String, String> form){
 
         Expert newExpert = new Expert(expertName);
         newExpert.setSurname(expertSurname);
         newExpert.setPatronymic(expertPatronymic);
+        newExpert.setCountry(expertCountry);
+        newExpert.setCity(expertCity);
+        newExpert.setEmail(expertEmail);
+        newExpert.setPhone(expertPhone);
+
+        if (onlineAccess!= null && onlineAccess != ""){
+            newExpert.setOnline(true);
+        }
+        else {
+            newExpert.setOnline(false);
+        }
+        if (offlineAccess!= null && offlineAccess != ""){
+            newExpert.setOffline(true);
+        }
+        else {
+            newExpert.setOnline(false);
+        }
+
+
+//        System.out.println(expertCountry.getId());
 
         if (id != null && id != ""){
 //            Optional<Expert> byId = expertRepo.findById(Long.parseLong(id));

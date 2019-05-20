@@ -1,6 +1,7 @@
 package com.example.ex2.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.*;
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@EnableTransactionManagement
+//@EnableTransactionManagement
 public class Expert {
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +31,8 @@ public class Expert {
 
     private Boolean offline;
 
+    private String city;
+
 
 //    @ManyToMany(mappedBy = "experts")
 //    private List<Tool> tools;
@@ -44,16 +47,15 @@ public class Expert {
     private List<Language> lang;
 
     @OneToOne(fetch = FetchType.LAZY)
-//    @MapsId
     @JoinColumn(name = "country_id", columnDefinition = "bigint")
     @JsonIgnore
     private Country country;
 
-    @OneToOne(fetch = FetchType.LAZY)
-//    @MapsId
-    @JoinColumn(name = "city_id", columnDefinition = "bigint")
-    @JsonIgnore
-    private City city;
+//    @OneToOne(fetch = FetchType.LAZY)
+////    @MapsId
+//    @JoinColumn(name = "city_id", columnDefinition = "bigint")
+//    @JsonIgnore
+//    private City city;
 
     @Override
     public boolean equals(Object o) {
@@ -156,6 +158,14 @@ public class Expert {
 
     public void setLang(List<Language> lang) {
         this.lang = lang;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public Country getCountry() {

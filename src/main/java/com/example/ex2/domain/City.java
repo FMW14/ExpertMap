@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "_cities")
+//@Entity
+//@Table(name = "_cities")
 public class City {
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +23,8 @@ public class City {
     private Expert expert;
 
     //    @Lob
-    private String title_ru;
+    @Column(name = "title_ru")
+    private String titleru;
     private String region;
     private String area;
 
@@ -31,9 +32,9 @@ public class City {
     public City() {
     }
 
-    public City(Country country, String title_ru, String region, String area) {
+    public City(Country country, String titleru, String region, String area) {
         this.country = country;
-        this.title_ru = title_ru;
+        this.titleru = titleru;
         this.region = region;
         this.area = area;
     }
@@ -47,11 +48,11 @@ public class City {
     }
 
     public String getTitle_ru() {
-        return title_ru;
+        return titleru;
     }
 
     public void setTitle_ru(String title_ru) {
-        this.title_ru = title_ru;
+        this.titleru = title_ru;
     }
 
     public Country getCountry() {

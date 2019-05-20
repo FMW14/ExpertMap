@@ -10,7 +10,8 @@ public class Language {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", columnDefinition = "serial")
     private Long Id;
-    private String title_ru;
+    @Column(name = "title_ru")
+    private String titleru;
 
     @ManyToMany(mappedBy = "lang")
 
@@ -20,7 +21,7 @@ public class Language {
     }
 
     public Language(String title_ru, String title_en) {
-        this.title_ru = title_ru;
+        this.titleru = title_ru;
     }
 
     public Long getId() {
@@ -32,11 +33,11 @@ public class Language {
     }
 
     public String getTitle_ru() {
-        return title_ru;
+        return titleru;
     }
 
     public void setTitle_ru(String title_ru) {
-        this.title_ru = title_ru;
+        this.titleru = title_ru;
     }
 
     public List<Expert> getExperts() {

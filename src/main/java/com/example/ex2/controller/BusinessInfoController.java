@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -27,25 +28,12 @@ public class BusinessInfoController {
     @Autowired
     private ToolRepo toolRepo;
 
-//    private List<Task> tasks =
-
-    @RequestMapping(value = "/gt", method = RequestMethod.GET)
-    @ResponseBody
-    public List<Tool> getTools() {
-        return toolRepo.findAll();
-    }
-
-
     @GetMapping
-    public String businessInfo(@RequestParam(required = false, defaultValue = "") String filter,
-                               @RequestParam(required = false, defaultValue = "") String sort,
-                               Model model){
+    public String businessInfo(Model model){
 //        Problem p = new Problem();
-        model.addAttribute("problems", problemRepo.findAll());
-        model.addAttribute("tasks", taskRepo.findAll());
-        model.addAttribute("tools", toolRepo.findAll());
-        model.addAttribute("filter", filter);
-        model.addAttribute("sort", sort);
+        model.addAttribute("problems", problemRepo.findAllByOrderByNameAsc());
+        model.addAttribute("tasks", taskRepo.findAllByOrderByNameAsc());
+        model.addAttribute("tools", toolRepo.findAllByOrderByNameAsc());
 //        model.addAttribute("newProblem", p);
         return "businessInfo";
     }
@@ -57,6 +45,7 @@ public class BusinessInfoController {
                                   ){
 //        model.addAttribute("action", action);
         model.addAttribute("problem", problem);
+//        model.addAttribute("prtype", problem.getType());
         model.addAttribute("probTasks", taskRepo.findAll());
         return "problemEdit";
     }
@@ -113,11 +102,28 @@ public class BusinessInfoController {
     public String saveNewProblem(
             @RequestParam(value = "problemName") String problemName,
             @RequestParam(value = "problemId", required = false) String idp,
-            @RequestParam Map<String, String> form){
+            @RequestParam(value = "problemType") String problemType,
+            @RequestParam Map<String, String> form,
+            Model model){
+
+        boolean isConfirmEmpty = StringUtils.isEmpty(problemName);
+
+        if (isConfirmEmpty) {
+            System.out.println("EMPTY NAME");
+            model.addAttribute("emptyName", "Problem title cannot be empty");
+            return "problemEdit" + idp;
+        }
+
 
 
         Problem newProblem = new Problem(problemName);
-
+        if (problemType.equals("1")){
+            newProblem.setType(true);
+        }
+        else {
+            newProblem.setType(false);
+        }
+//        System.out.println(problemType + "-------------");
 
         if (idp != null && idp != ""){
             List<Problem> byId = problemRepo.findById(Integer.parseInt(idp));
@@ -147,6 +153,18 @@ public class BusinessInfoController {
                 List<Task> tt = taskRepo.findById(Integer.parseInt(key));
                 tasks.add(tt.get(0));
             }
+//            if (key.equals("TypeExternal") && value.equals("1")){
+//                newProblem.setType(true);
+//            }
+//            if (key.equals("ProblemType")){
+//                System.out.println(key + " " + value);
+//                if(value.equals("1")){
+//                    newProblem.setType(true);
+//                }
+//                else {
+//                    newProblem.setType(false);
+//                }
+//            }
         }
         if(newProblem.getTasks() != null){
             newProblem.getTasks().clear();

@@ -11,9 +11,11 @@
             <#--<li class="nav-item active">-->
                 <#--<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>-->
             <#--</li>-->
+            <#if known>
             <li class="nav-item">
                 <a class="nav-link" href="/solution">Solution</a>
             </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="/businessInfo">Business Info</a>
             </li>
@@ -21,6 +23,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="/expertList">Expert list</a>
             </li>
+            </#if>
 
             <#if isMod>
             <li class="nav-item">
@@ -45,7 +48,7 @@
             <#--</li>-->
         </ul>
 
-        <div class="navbar-text mr-3"><#if user??>${name}<#else>Please, login</#if></div>
+        <div class="navbar-text mr-3"><#if user??>${name}</#if></div>
         <#--<form class="form-inline my-2 my-lg-0">-->
             <#--<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">-->
             <#--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
@@ -56,6 +59,8 @@
             <div class="form-inline">
                 <@l.logout/>
             </div>
+        <#else>
+        <a href="/login" class="btn btn-outline-primary">Sign In</a>
         </#if>﻿
     </div>
 </nav>

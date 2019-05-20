@@ -13,12 +13,13 @@ public class Country {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "country_id", columnDefinition = "serial")
     private Long country_id;
-    private String title_ru;
+    @Column(name = "title_ru")
+    private String titleru;
     private String title_en;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "country", fetch = FetchType.LAZY, orphanRemoval = true)
-    @JsonIgnore
-    private List<City> cities = new ArrayList<>();
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "country", fetch = FetchType.LAZY, orphanRemoval = true)
+//    @JsonIgnore
+//    private List<City> cities = new ArrayList<>();
 
     @OneToOne(mappedBy = "country", cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, optional = false)
@@ -28,14 +29,14 @@ public class Country {
     public Country() {
     }
 
-    public Country(String title_ru, String title_en, List<City> cities) {
-        this.title_ru = title_ru;
-        this.title_en = title_en;
-        this.cities = cities;
-    }
+//    public Country(String titleru, String title_en, List<City> cities) {
+//        this.titleru = titleru;
+//        this.title_en = title_en;
+//        this.cities = cities;
+//    }
 
     public Country(String title_ru, String title_en) {
-        this.title_ru = title_ru;
+        this.titleru = title_ru;
         this.title_en = title_en;
     }
 
@@ -47,12 +48,12 @@ public class Country {
         country_id = id;
     }
 
-    public String getTitle_ru() {
-        return title_ru;
+    public String getTitleru() {
+        return titleru;
     }
 
-    public void setTitle_ru(String title_ru) {
-        this.title_ru = title_ru;
+    public void setTitle_ru(String titleru) {
+        this.titleru = titleru;
     }
 
     public String getTitle_en() {
@@ -63,13 +64,13 @@ public class Country {
         this.title_en = title_en;
     }
 
-    public List<City> getCities() {
-        return cities;
-    }
-
-    public void setCities(List<City> cities) {
-        this.cities = cities;
-    }
+//    public List<City> getCities() {
+//        return cities;
+//    }
+//
+//    public void setCities(List<City> cities) {
+//        this.cities = cities;
+//    }
 
     public Expert getExpert() {
         return expert;
