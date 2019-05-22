@@ -1,8 +1,13 @@
 package com.example.ex2.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "_lang")
 public class Language {
@@ -24,27 +29,27 @@ public class Language {
         this.titleru = title_ru;
     }
 
-    public Long getId() {
-        return Id;
-    }
-
-    public void setId(Long id) {
-        Id = id;
-    }
-
-    public String getTitle_ru() {
-        return titleru;
-    }
-
-    public void setTitle_ru(String title_ru) {
-        this.titleru = title_ru;
-    }
-
-    public List<Expert> getExperts() {
-        return experts;
-    }
-
-    public void setExperts(List<Expert> experts) {
-        this.experts = experts;
-    }
+//    public Long getId() {
+//        return Id;
+//    }
+//
+//    public void setId(Long id) {
+//        Id = id;
+//    }
+//
+//    public String getTitle_ru() {
+//        return titleru;
+//    }
+//
+//    public void setTitle_ru(String title_ru) {
+//        this.titleru = title_ru;
+//    }
+//
+//    public List<Expert> getExperts() {
+//        return experts;
+//    }
+//
+//    public void setExperts(List<Expert> experts) {
+//        this.experts = experts;
+//    }
 }

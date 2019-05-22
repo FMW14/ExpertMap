@@ -5,6 +5,7 @@ import com.example.ex2.repos.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +14,8 @@ import java.security.Key;
 import java.util.*;
 
 @Controller
-//@RestController
 @RequestMapping("/api")
+@PreAuthorize("hasAuthority('USER')")
 public class ApiController {
 @Autowired
 private ToolRepo toolRepo;
@@ -80,47 +81,5 @@ private ProblemRepo problemRepo;
         List<Tool> t = new ArrayList<>(s);
         return t;
     }
-
-//    @RequestMapping(value = "/get_tools", method = RequestMethod.GET, consumes="application/json")
-//    @ResponseBody
-//    public HashMap getTools(@RequestParam(value="selected[]") String[] selected) {
-//        System.out.println("got it");
-//        HashMap<String, Integer> map = new HashMap<>();
-//        Set<Tool> s = new LinkedHashSet<>();
-//
-//
-//        for (int i = 0; i < selected.length; i++) {
-//            Task task = taskRepo.findById(Integer.parseInt(selected[i])).get(0);
-//            List<Tool> gotByTask = toolRepo.findByTasks(task);
-//
-//            for (Tool tl : gotByTask){
-//                map.put(tl.getName(), tl.getId());
-//                s.add(tl);
-//            }
-//        }
-//
-//        return map;
-//    }
-
-//    @RequestMapping(value = "/get_cities", method = RequestMethod.GET)
-//    @ResponseBody
-//    public List<City> getCities(@RequestParam String val) {
-//        List<City> c = cityRepo.findByTitleruStartingWith(val);
-//        return c;
-//    }
-
-
-//    @RequestMapping(value = "/rest", method = RequestMethod.GET)
-//    @RequestMapping(value = "/businessInfo", method = RequestMethod.GET)
-//    @ResponseBody
-////    public ResponseEntity<Object> getProduct() {
-////        return new ResponseEntity<>(problemRepo.findAll(), HttpStatus.OK);
-////    }
-//
-//
-//    public List<Tool> getTools() {
-//        return toolRepo.findAll();
-//    }
-
 
 }

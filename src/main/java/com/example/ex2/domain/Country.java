@@ -1,11 +1,15 @@
 package com.example.ex2.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "_countries")
 public class Country {
@@ -40,43 +44,4 @@ public class Country {
         this.title_en = title_en;
     }
 
-    public Long getId() {
-        return country_id;
-    }
-
-    public void setId(Long id) {
-        country_id = id;
-    }
-
-    public String getTitleru() {
-        return titleru;
-    }
-
-    public void setTitle_ru(String titleru) {
-        this.titleru = titleru;
-    }
-
-    public String getTitle_en() {
-        return title_en;
-    }
-
-    public void setTitle_en(String title_en) {
-        this.title_en = title_en;
-    }
-
-//    public List<City> getCities() {
-//        return cities;
-//    }
-//
-//    public void setCities(List<City> cities) {
-//        this.cities = cities;
-//    }
-
-    public Expert getExpert() {
-        return expert;
-    }
-
-    public void setExpert(Expert expert) {
-        this.expert = expert;
-    }
 }

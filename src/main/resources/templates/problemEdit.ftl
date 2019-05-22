@@ -24,20 +24,22 @@
 
         <#--<h5 class="card-title">Edit problem</h5>-->
         <div class="form-group">
-            <form action="/businessInfo/problem/edit" method="post">
+            <#--<div class="form-group">-->
+            <form action="/businessInfo/problem/post" method="post">
                 <#--<label for="problemName" class="mb-1">Title: </label>-->
-                <input class="form-control mb-1"
+                <input class="form-control mb-1 ${(nameError??)?string('is-invalid', '')}"
                        type="text"
-                       name="problemName"
-                       id="problemName"
+                       name="name"
+                       id="name"
                        value="${problem.name?if_exists}"
                        placeholder="Enter the title"
                 />
-                    <#if emptyName??>
+                    <#if nameError??>
                     <div class="invalid-feedback">
-                        ${emptyName}
+                        ${nameError}
                     </div>
                     </#if>
+            <#--</div>-->
 
                 <label class="card-text mb-0 mt-1">Select tasks:</label>
                 <div>
@@ -68,7 +70,8 @@
                         <div class="form-check">
                             <#--<#if problem.type?if_exists == true>checked</#if>-->
                             <input class="form-check-input"
-                                   type="radio" name="problemType"
+                                   type="radio"
+                                   name="problemType"
                                    id="TypeExternal"
                                    value="1"
                                    <#if problem.type??>
@@ -89,7 +92,7 @@
                             <#--<#if problem.type?if_exists == false>checked</#if>-->
                             <input class="form-check-input"
                                    type="radio"
-                                   name="problemType"
+                                   name="type"
                                    id="TypeInternal"
                                    value="0"
                                    <#--<#if t>-->
@@ -106,9 +109,10 @@
                                 Internal problem
                             </label>
                         </div>
+
                     </div>
 
-                <input type="hidden" value="${problem.id?if_exists}" name="problemId" />
+                <input type="hidden" value="${problem.id?if_exists}" name="Id" />
                 <input type="hidden" value="${_csrf.token}" name="_csrf" />
                     <div class="form-inline float-right">
                         <button type="submit" class="btn btn-primary mr-3" >Save</button>

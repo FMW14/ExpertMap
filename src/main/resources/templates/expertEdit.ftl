@@ -28,7 +28,7 @@
 
     <div class="form-row mb-3">
         <label for="expertCountry" class="col-form-label col-md-2">Country</label>
-        <select id="expertCountry" name="expertCountry" class="form-control col-md-4">
+        <select id="expertCountry" name="expertCountry" class="form-control col-md-10">
             <option value="" selected disabled>Select country</option>
              <#list countries as cnt>
                  <option value=${cnt.id}
@@ -43,11 +43,11 @@
              </#list>
         </select>
 
-        <label for="expertCity" class="col-form-label col-md-1 text-center">  City</label>
+        <label for="expertCity" class="col-form-label col-md-2">City</label>
         <input id="expertCity"
                name="expertCity"
                placeholder="Enter city"
-               class="form-control col-md-5"
+               class="form-control col-md-10"
                value="${expert.city?if_exists}">
         </input>
     </div>

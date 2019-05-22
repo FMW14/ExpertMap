@@ -79,7 +79,6 @@ public class SolutionService {
                 }
 
                 if(i == marksSize){
-                    System.out.println(expertDto.hashCode());
                     experts.add(expertDto);
                 }
             }

@@ -5,21 +5,30 @@
 <div class="card mx-auto" style="max-width: 30rem;">
     <h5 class="card-header">Edit tool</h5>
     <div class="card-body">
-    <form action="/businessInfo/tool/edit" method="post">
-    <input class="form-control mb-3"
-           type="text"
-           name="toolName"
-           placeholder="Enter the title"
-           value="${tool.name?if_exists}" />
+        <form action="/businessInfo/tool/post" method="post">
+            <div class="form-group">
+                <input class="form-control ${(nameError??)?string('is-invalid', '')}"
+                       type="text"
+                       name="name"
+                       placeholder="Enter the title"
+                       value="${tool.name?if_exists}"
+                <#--value="<#if message??>${tool.name}</#if>"-->
+                />
+        <#if nameError??>
+            <div class="invalid-feedback">
+                ${nameError}
+            </div>
+        </#if>
+            </div>
 
-    <input type="hidden" value="${tool.id?if_exists}" name="toolId" />
-    <input type="hidden" value="${_csrf.token}" name="_csrf" />
+            <input type="hidden" value="${tool.id?if_exists}" name="Id"/>
+            <input type="hidden" value="${_csrf.token}" name="_csrf"/>
 
-        <div class="form-inline float-right">
-            <button type="submit" class="btn btn-primary mr-3" >Save</button>
-            <a href="/businessInfo" class="btn btn-outline-primary">Cancel</a>
-        </div>
-    </form>
+            <div class="form-inline float-right mt-3">
+                <button type="submit" class="btn btn-primary mr-3">Save</button>
+                <a href="/businessInfo" class="btn btn-outline-primary">Cancel</a>
+            </div>
+        </form>
     </div>
 </div>
 </@c.page>

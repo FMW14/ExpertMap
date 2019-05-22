@@ -3,18 +3,21 @@ package com.example.ex2.controller;
 import com.example.ex2.domain.Problem;
 import com.example.ex2.domain.Task;
 import com.example.ex2.domain.Tool;
+import com.example.ex2.repos.CountryRepo;
 import com.example.ex2.repos.ProblemRepo;
 import com.example.ex2.repos.TaskRepo;
 import com.example.ex2.repos.ToolRepo;
+import com.example.ex2.service.ProblemService;
+import com.example.ex2.service.TaskService;
+import com.example.ex2.service.ToolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.Valid;
 import java.util.Map;
 
 @Controller
@@ -27,36 +30,57 @@ public class BusinessInfoController {
     private TaskRepo taskRepo;
     @Autowired
     private ToolRepo toolRepo;
+    @Autowired
+    private CountryRepo countryRepo;
+    @Autowired
+    private TaskService taskService;
+    @Autowired
+    private ToolService toolService;
+    @Autowired
+    private ProblemService problemService;
 
     @GetMapping
     public String businessInfo(Model model){
-//        Problem p = new Problem();
         model.addAttribute("problems", problemRepo.findAllByOrderByNameAsc());
         model.addAttribute("tasks", taskRepo.findAllByOrderByNameAsc());
         model.addAttribute("tools", toolRepo.findAllByOrderByNameAsc());
-//        model.addAttribute("newProblem", p);
         return "businessInfo";
     }
 
     @PreAuthorize("hasAuthority('MOD1')")
     @GetMapping("/problem/edit/{problem}")
     public String problemEditForm(Model model,
-                                  @PathVariable Problem problem
-                                  ){
-//        model.addAttribute("action", action);
+                                  @PathVariable Problem problem){
         model.addAttribute("problem", problem);
-//        model.addAttribute("prtype", problem.getType());
-        model.addAttribute("probTasks", taskRepo.findAll());
+        model.addAttribute("probTasks", taskRepo.findAllByOrderByNameAsc());
         return "problemEdit";
     }
+
+    @PreAuthorize("hasAuthority('MOD1')")
+    @GetMapping("/problem/edit/")
+    public String problemEditForm2(Model model){
+        Problem problem = new Problem();
+        model.addAttribute("problem", problem);
+        model.addAttribute("probTasks", taskRepo.findAllByOrderByNameAsc());
+        return "problemEdit";
+    }
+
 
     @PreAuthorize("hasAuthority('MOD1')")
     @GetMapping("/task/edit/{task}")
     public String taskEditForm(Model model,
                                @PathVariable Task task){
         model.addAttribute("task", task);
-//        model.addAttribute("taskTools", toolRepo.findByTasks(task));
-        model.addAttribute("taskTools", toolRepo.findAll());
+        model.addAttribute("taskTools", toolRepo.findAllByOrderByNameAsc());
+        return "taskEdit";
+    }
+
+    @PreAuthorize("hasAuthority('MOD1')")
+    @GetMapping("/task/edit/")
+    public String taskEditForm2(Model model){
+        Task task = new Task();
+        model.addAttribute("task", task);
+        model.addAttribute("taskTools", toolRepo.findAllByOrderByNameAsc());
         return "taskEdit";
     }
 
@@ -69,190 +93,93 @@ public class BusinessInfoController {
     }
 
     @PreAuthorize("hasAuthority('MOD1')")
-    @GetMapping("/problem/new/")
-    public String newProblem(Model model){
-//        String action = "new";
-//        model.addAttribute("action", action);
-        Problem newProblem = new Problem();
-        model.addAttribute("problem", newProblem);
-        model.addAttribute("probTasks", taskRepo.findAll());
-//        return "newProblem";
-        return "problemEdit";
-    }
-
-    @PreAuthorize("hasAuthority('MOD1')")
-    @GetMapping("/task/new/")
-    public String newTask(Model model){
-        Task newTask = new Task();
-        model.addAttribute("task", newTask);
-        model.addAttribute("taskTools", toolRepo.findAll());
-        return "taskEdit";
-    }
-
-    @PreAuthorize("hasAuthority('MOD1')")
-    @GetMapping("/tool/new/")
-    public String newTool(Model model){
-        Tool newTool = new Tool();
-        model.addAttribute("tool", newTool);
+    @GetMapping("/tool/edit/")
+    public String toolEditForm2(Model model){
+        Tool tool = new Tool();
+        model.addAttribute("tool", tool);
         return "toolEdit";
     }
 
     @PreAuthorize("hasAuthority('MOD1')")
-    @PostMapping("/problem/edit")
-    public String saveNewProblem(
-            @RequestParam(value = "problemName") String problemName,
-            @RequestParam(value = "problemId", required = false) String idp,
-            @RequestParam(value = "problemType") String problemType,
-            @RequestParam Map<String, String> form,
-            Model model){
+    @PostMapping("/problem/post")
+    public String saveProblem(
+            @Valid Problem problem,
+            BindingResult bindingResult,
+            Model model,
+            @RequestParam(value = "name") String problemName,
+            @RequestParam(value = "Id", required = false) String idp,
+            @RequestParam(value = "type", required = false) String problemType,
+            @RequestParam Map<String, String> form){
 
-        boolean isConfirmEmpty = StringUtils.isEmpty(problemName);
+        problemService.setTasksAndType(problem, problemType, form);
 
-        if (isConfirmEmpty) {
-            System.out.println("EMPTY NAME");
-            model.addAttribute("emptyName", "Problem title cannot be empty");
-            return "problemEdit" + idp;
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
+
+            model.mergeAttributes(errorsMap);
+            model.addAttribute("problem", problem);
+            model.addAttribute("probTasks", taskRepo.findAll());
+            model.addAttribute("countries", countryRepo.findAllByOrderByTitleruAsc());
+        } else {
+            problemService.saveTask(problem, problemName, idp);
+            return "redirect:/businessInfo";
         }
+        return "problemEdit";
+
+    }
 
 
 
-        Problem newProblem = new Problem(problemName);
-        if (problemType.equals("1")){
-            newProblem.setType(true);
+    @PreAuthorize("hasAuthority('MOD1')")
+    @PostMapping("/task/post")
+    public String saveTask(
+            @Valid Task task,
+            BindingResult bindingResult,
+            Model model,
+            @RequestParam(value = "name") String taskName,
+            @RequestParam(value = "Id", required = false) String idt,
+            @RequestParam Map<String, String> form){
+
+        taskService.setTools(task, form);
+
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
+
+            model.mergeAttributes(errorsMap);
+            model.addAttribute("task", task);
+            model.addAttribute("taskTools", toolRepo.findAll());
+
+//            return "/businessInfo/task/edit/" + idt;
+        } else {
+            taskService.saveTask(task, taskName, idt);
+            return "redirect:/businessInfo";
         }
-        else {
-            newProblem.setType(false);
-        }
-//        System.out.println(problemType + "-------------");
-
-        if (idp != null && idp != ""){
-            List<Problem> byId = problemRepo.findById(Integer.parseInt(idp));
-            newProblem.setId(byId.get(0).getId());
-        }
-
-//        if (problemName != null && problemName != ""){
-//            List<Problem> problems = problemRepo.findByName(problemName);
-//            if(problems.size() == 0){
-//                newProblem.setName(problemName);
-//            }
-//            else {
-//                return "redirect:/businessInfo";
-//            }
-//        }
-//        else{
-////            System.out.println("null name");
-//            return "redirect:/businessInfo";
-//        }
-
-        List<Task> tasks = new ArrayList<>();
-
-        for (Map.Entry entry : form.entrySet()) {
-            String key = entry.getKey().toString();
-            String value = entry.getValue().toString();
-            if (value.equals("on")) {
-                List<Task> tt = taskRepo.findById(Integer.parseInt(key));
-                tasks.add(tt.get(0));
-            }
-//            if (key.equals("TypeExternal") && value.equals("1")){
-//                newProblem.setType(true);
-//            }
-//            if (key.equals("ProblemType")){
-//                System.out.println(key + " " + value);
-//                if(value.equals("1")){
-//                    newProblem.setType(true);
-//                }
-//                else {
-//                    newProblem.setType(false);
-//                }
-//            }
-        }
-        if(newProblem.getTasks() != null){
-            newProblem.getTasks().clear();
-        }
-
-        newProblem.setTasks(tasks);
-        problemRepo.save(newProblem);
-
-        return "redirect:/businessInfo";
-        //return "redirect:/";
-        //return "addproblem";
+        return "taskEdit";
     }
 
     @PreAuthorize("hasAuthority('MOD1')")
-    @PostMapping("/task/edit")
-    public String saveNewTask(
-            @RequestParam(value = "taskName") String taskName,
-            @RequestParam(value = "taskId", required = false) String idt,
-            @RequestParam Map<String, String> form){
+    @PostMapping("/tool/post")
+    public String saveTool(
+            @Valid Tool tool,
+            BindingResult bindingResult,
+            Model model,
+            @RequestParam(value = "name") String toolName,
+            @RequestParam(value = "Id", required = false) String idt) {
 
-        Task newTask = new Task(taskName);
-//        Task newTask = new Task();
+        tool.setName(toolName);
+//        Tool newTool = new Tool(toolName);
 
-        if (idt != null && idt != ""){
-            List<Task> byId = taskRepo.findById(Integer.parseInt(idt));
-            newTask.setId(byId.get(0).getId());
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
+
+            model.mergeAttributes(errorsMap);
+            model.addAttribute("tool", tool);
+        } else {
+            toolService.saveTool(tool, toolName, idt);
+//            model.addAttribute("tool", null);
+            return "redirect:/businessInfo";
         }
-
-//        if (taskName != null && taskName != ""){
-//            List<Task> tasks = taskRepo.findByName(taskName);
-//            if(tasks.size() == 0 || tasks.get(0).getId() == Integer.parseInt(idt)){
-//                newTask.setName(taskName);
-//            }
-//            else {
-//                System.out.println(2);
-//                return "redirect:/businessInfo";
-//            }
-//        }
-
-
-        List<Tool> tools = new ArrayList<>();
-
-        for (Map.Entry entry : form.entrySet()) {
-            String key = entry.getKey().toString();
-            String value = entry.getValue().toString();
-            if (value.equals("on")) {
-                List<Tool> tt = toolRepo.findById(Integer.parseInt(key));
-                tools.add(tt.get(0));
-            }
-        }
-        if(newTask.getTools() != null){
-            newTask.getTools().clear();
-        }
-
-        newTask.setTools(tools);
-        taskRepo.save(newTask);
-
-        return "redirect:/businessInfo";
-        //return "redirect:/";
-        //return "addtask";
-    }
-
-    @PreAuthorize("hasAuthority('MOD1')")
-    @PostMapping("/tool/edit")
-    public String saveNewTool(
-            @RequestParam(value = "toolName") String toolName,
-            @RequestParam(value = "toolId", required = false) String idt,
-            @RequestParam Map<String, String> form){
-
-        Tool newTool = new Tool(toolName);
-
-        if (idt != null && idt != ""){
-            List<Tool> byId = toolRepo.findById(Integer.parseInt(idt));
-            newTool.setId(byId.get(0).getId());
-        }
-
-//        if (toolName != null && toolName != ""){
-//            List<Tool> tools = toolRepo.findByName(toolName);
-//            if(tools.size() == 0){
-//                newTool.setName(toolName);
-//            }
-//            else {
-//                return "redirect:/businessInfo";
-//            }
-//        }
-
-        toolRepo.save(newTool);
-        return "redirect:/businessInfo";
+        return "toolEdit";
     }
 
 
@@ -282,14 +209,4 @@ public class BusinessInfoController {
 
         return "redirect:/businessInfo";
     }
-
-    @GetMapping("sort")
-    public String sort(Model model
-    ){
-        model.addAttribute("problems", problemRepo.findAllByOrderByIdDesc());
-        return "businessInfo";
-    }
-
-    //TODO uniq name check
-
 }

@@ -1,12 +1,17 @@
 package com.example.ex2.domain;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
+@Getter
+@Setter
 @Entity
-//@NamedQuery(name = "User.findByEmailAddress",
-//        query = "select  from User u where u.emailAddress = ?1")
 public class Problem {
 
     @javax.persistence.Id
@@ -14,9 +19,11 @@ public class Problem {
     @Column(name = "id", columnDefinition = "serial")
     private Integer id;
 
-//    @NotBlank(message = "Title cannot be empty")
+    @NotBlank(message = "Title cannot be empty")
+    @Length(max = 255, message = "Title too long")
     private String name;
 
+//    @NotNull(message = "Type cannot be empty")
     private Boolean type;
 
 //    @ManyToMany
@@ -42,37 +49,37 @@ public class Problem {
         this.type = type;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Task> getTasks() {
-        return tasks;
-    }
-
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
-    }
-
-    public Boolean getType() {
-        return type;
-    }
-
-    public void setType(Boolean type) {
-        this.type = type;
-    }
+//    public Integer getId() {
+//        return id;
+//    }
+//
+//    public void setId(Integer id) {
+//        this.id = id;
+//    }
+//
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
+//
+//    public List<Task> getTasks() {
+//        return tasks;
+//    }
+//
+//    public void setTasks(List<Task> tasks) {
+//        this.tasks = tasks;
+//    }
+//
+//    public Boolean getType() {
+//        return type;
+//    }
+//
+//    public void setType(Boolean type) {
+//        this.type = type;
+//    }
 
     //    public Set<problemEdit.ftl> getProblems() {
 //        return probset;

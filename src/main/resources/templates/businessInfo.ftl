@@ -8,7 +8,7 @@
     <div class="form-inline float-left mt-2"><h4>Problems</h4></div>
 
     <div class="float-right mb-3">
-        <a href="/businessInfo/problem/new/" class="btn btn-primary ml-5 " style="width: 180px; text-align: center">Add new problem</a>
+        <a href="/businessInfo/problem/edit/" class="btn btn-primary ml-5 " style="width: 180px; text-align: center">Add new problem</a>
     </div>
 </div>
 <#--style="width: 100px; text-align: center"-->
@@ -68,7 +68,7 @@
 <div>
     <div class="form-inline float-left mt-2"><h4>Tasks</h4></div>
     <div class="float-right mb-3">
-        <a href="/businessInfo/task/new/" class="btn btn-primary ml-5" style="width: 180px; text-align: center">Add new task</a>
+        <a href="/businessInfo/task/edit/" class="btn btn-primary ml-5" style="width: 180px; text-align: center">Add new task</a>
     </div>
 </div>
 
@@ -115,7 +115,7 @@
 <div>
     <div class="form-inline float-left mt-2"><h4>Tools</h4></div>
     <div class="float-right mb-3">
-        <a href="/businessInfo/tool/new/" class="btn btn-primary ml-5" style="width: 180px; text-align: center">Add new tool</a>
+        <a href="/businessInfo/tool/edit/" class="btn btn-primary ml-5" style="width: 180px; text-align: center">Add new tool</a>
     </div>
 </div>
 

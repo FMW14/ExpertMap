@@ -1,13 +1,16 @@
 package com.example.ex2.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import java.util.HashSet;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
-import java.util.Set;
 
+@Getter
+@Setter
 @Entity
 public class Task {
     @javax.persistence.Id
@@ -15,6 +18,8 @@ public class Task {
     @Column(name = "id", columnDefinition = "serial")
     private Integer Id;
 
+    @NotBlank(message = "Title cannot be empty")
+    @Length(max = 255, message = "Title too long")
     private String name;
 
 //    @ManyToMany
@@ -40,35 +45,35 @@ public class Task {
     public Task() {
     }
 
-    public Integer getId() {
-        return Id;
-    }
-
-    public void setId(Integer id) {
-        Id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Problem> getProblems() {
-        return problems;
-    }
-
-    public void setProblems(List<Problem> problems) {
-        this.problems = problems;
-    }
-
-    public List<Tool> getTools() {
-        return tools;
-    }
-
-    public void setTools(List<Tool> tools) {
-        this.tools = tools;
-    }
+//    public Integer getId() {
+//        return Id;
+//    }
+//
+//    public void setId(Integer id) {
+//        Id = id;
+//    }
+//
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
+//
+//    public List<Problem> getProblems() {
+//        return problems;
+//    }
+//
+//    public void setProblems(List<Problem> problems) {
+//        this.problems = problems;
+//    }
+//
+//    public List<Tool> getTools() {
+//        return tools;
+//    }
+//
+//    public void setTools(List<Tool> tools) {
+//        this.tools = tools;
+//    }
 }
