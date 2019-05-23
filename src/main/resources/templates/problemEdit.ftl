@@ -1,4 +1,5 @@
 <#import "parts/common.ftl" as c>
+<#include "parts/security.ftl">
 
 <@c.page>
 
@@ -18,14 +19,22 @@
 
 
 
-<div class="card mx-auto" style="max-width: 30rem;">
-    <h5 class="card-header">Edit problem</h5>
-    <div class="card-body">
+<div class="card mx-auto" style="max-width: 30rem;" >
+    <h5 class="card-header">
+        <#if problem.id??>
+            Edit problem
+        <#else >
+            Add new problem
+        </#if>
+    </h5>
+    <div class="card-body"
 
         <#--<h5 class="card-title">Edit problem</h5>-->
         <div class="form-group">
             <#--<div class="form-group">-->
-            <form action="/businessInfo/problem/post" method="post">
+            <form action="/businessInfo/problem/post" method="post"
+                  <#--class="col-12"-->
+            >
                 <#--<label for="problemName" class="mb-1">Title: </label>-->
                 <input class="form-control mb-1 ${(nameError??)?string('is-invalid', '')}"
                        type="text"
@@ -45,16 +54,21 @@
                 <div>
                 <#list probTasks as task>
                 <#--<b>${task.name}</b>-->
-                    <div>
+                    <#--overflow:hidden;-->
+                    <div style="word-break: break-word">
+                        <span class="align-middle">
                         <input id="taskCheckbox${task.id}"
                                type="checkbox"
                                name="${task.id}"
-                               <#--style="width: 1.25rem !important; height: 1.25rem !important;"-->
+                               style="width: 1.00rem !important; height: 1.00rem !important;"
                             ${problem.tasks?if_exists?seq_contains(task)?string("checked", "")}
                         />
+                        </span>
 
                         <label for="taskCheckbox${task.id}"
-                               class="form-check-label">
+                               <#--class="form-check-label text-nowrap. "-->
+                        <#--style="white-space: normal;"-->
+                        >
                             ${task.name}
                         </label>
                     </div>
@@ -69,11 +83,12 @@
                         <#--${problem.type}-->
                         <div class="form-check">
                             <#--<#if problem.type?if_exists == true>checked</#if>-->
-                            <input class="form-check-input"
+                            <input class="form-check-input ${(typeError??)?string('is-invalid', '')}"
                                    type="radio"
                                    name="problemType"
                                    id="TypeExternal"
                                    value="1"
+                                   style="width: 1.00rem !important; height: 1.00rem !important;"
                                    <#if problem.type??>
                                        ${problem.type?then("checked", "")}
                                    <#else>
@@ -87,14 +102,16 @@
                             <label class="form-check-label" for="TypeExternal">
                                 External problem
                             </label>
+
                         </div>
                         <div class="form-check">
                             <#--<#if problem.type?if_exists == false>checked</#if>-->
-                            <input class="form-check-input"
+                            <input class="form-check-input ${(typeError??)?string('is-invalid', '')}"
                                    type="radio"
                                    name="type"
                                    id="TypeInternal"
                                    value="0"
+                                   style="width: 1.00rem !important; height: 1.00rem !important;"
                                    <#--<#if t>-->
                                        <#--${t?then("", "checked")}-->
                                    <#--</#if>-->
@@ -110,7 +127,13 @@
                             </label>
                         </div>
 
+
                     </div>
+                    <#if typeError??>
+                                <div class="invalid-feedback">
+                                    ${typeError}
+                                </div>
+                    </#if>
 
                 <input type="hidden" value="${problem.id?if_exists}" name="Id" />
                 <input type="hidden" value="${_csrf.token}" name="_csrf" />

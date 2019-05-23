@@ -1,11 +1,22 @@
 <#import "parts/common.ftl" as c>
+<#include "parts/security.ftl">
 
 <@c.page>
 <#--<form action="/logout" method="post">-->
     <#--<input type="hidden" name="_csrf" value="${_csrf.token}" />-->
 <#--</form>-->
 
-<h5 align="center">Hello, guest</h5>
+<#--<h5 align="center">Hello, guest</h5>-->
+
+    <h5 align="center">
+    <#if known>
+        Hello, ${name}
+    <#else >
+        Hello, guest
+    </#if>
+    </h5>
+
+
 
 <a href="/login">Login page</a>
 

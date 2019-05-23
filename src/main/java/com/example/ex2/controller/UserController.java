@@ -6,15 +6,14 @@ import com.example.ex2.repos.UserRepo;
 import com.example.ex2.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.LinkedHashSet;
+import javax.validation.Valid;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/user")
@@ -27,7 +26,7 @@ public class UserController {
 
     @GetMapping
     public String userList(Model model){
-        model.addAttribute("users", userRepo.findAll());
+        model.addAttribute("users", userService.findAllAsc());
         return "userList";
     }
 
@@ -43,32 +42,26 @@ public class UserController {
         model.addAttribute("roles", Role.values());
         return "userAdd";
     }
-
-    @PreAuthorize("hasAuthority('MOD1')")
-    @PostMapping
-    public String userEditRole(
-            @RequestParam String username,
-            @RequestParam Map<String, String> form,
-            @RequestParam("userId") User user
-    ){
-        if(username.equals("admin")){
-            return "redirect:/user";
-        }
-
-//        user.setUsername(username);
-
-        Set<String> roles = Arrays.stream(Role.values()).
-                map(Role::name).
-                collect(Collectors.toSet());
-        user.getRoles().clear();
-
-        for (String key : form.keySet()){
-            if (roles.contains(key)){
-                user.getRoles().add(Role.valueOf(key));
+    @GetMapping("/delete/{user}")
+    public String userDelete(@PathVariable User user,
+                             @AuthenticationPrincipal User curuser){
+        if(!userService.isNameAdmin(curuser)) {
+            if (userService.isNameAdmin(user)) {
+                return "redirect:/user";
+            }
+            if (user.equals(curuser)) {
+                return "redirect:/user";
+            }
+            if (user.isAdmin() && !curuser.isAdmin()) {
+                return "redirect:/user";
+            }
+            if (curuser.isMod() && user.isMod() || user.isAdmin()) {
+                return "redirect:/user";
             }
         }
 
-        userRepo.save(user);
+        userService.deleteUser(user);
+
         return "redirect:/user";
     }
 
@@ -81,32 +74,33 @@ public class UserController {
             @RequestParam Map<String, String> form
     ){
         User newuser = new User();
-        if(username.equals("admin")){
-            return "redirect:/user";
-        }
+        userService.addUser(newuser, username, password, password2, form);
+        return "redirect:/user";
+    }
 
-        newuser.setUsername(username);
-        if (password.equals(password2)){
-            newuser.setPassword(password);
-        }
+    @PreAuthorize("hasAuthority('MOD1')")
+    @PostMapping("/save")
+    public String userSave(
+            @AuthenticationPrincipal User curuser,
+            @RequestParam String password,
+            @RequestParam String password2,
+            @RequestParam Map<String, String> form,
+            @RequestParam("Id") User user
+    ) {
 
-        Set<String> roles = Arrays.stream(Role.values()).
-                map(Role::name).
-                collect(Collectors.toSet());
-//        newuser.getRoles().clear();
-
-        Set<Role> newroles = new LinkedHashSet<>();
-
-        for (String key : form.keySet()){
-            if (roles.contains(key)){
-                newroles.add(Role.valueOf(key));
-//                newuser.getRoles().add(Role.valueOf(key));
+        if(!userService.isNameAdmin(curuser)){
+            if(userService.isNameAdmin(user) && !userService.isNameAdmin(curuser)){
+                return "redirect:/user";
+            }
+            if(curuser.isAdmin() && user.isAdmin()){
+                return "redirect:/user";
+            }
+            if(curuser.isMod() && user.isMod() || user.isAdmin()){
+                return "redirect:/user";
             }
         }
-        newuser.setRoles(newroles);
 
-        userService.addUser(newuser);
-//        userRepo.save(user);
+        userService.saveUser(user, password, password2, form);
         return "redirect:/user";
     }
 

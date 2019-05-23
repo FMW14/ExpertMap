@@ -28,12 +28,12 @@
 
     <div class="form-row mb-3">
         <label for="expertCountry" class="col-form-label col-md-2">Country</label>
-        <select id="expertCountry" name="expertCountry" class="form-control col-md-10">
+        <select id="expertCountry" name="expertCountry" class="form-control col-md-10 ">
             <option value="" selected disabled>Select country</option>
              <#list countries as cnt>
-                 <option value=${cnt.id}
+                 <option value=${cnt.country_id}
                      <#if expert.country??>
-                        <#if expert.country.id == cnt.id>selected</#if>
+                        <#if expert.country.country_id == cnt.country_id>selected</#if>
                      </#if>
                  >
                      ${cnt.titleru}
@@ -42,7 +42,8 @@
                 No country list
              </#list>
         </select>
-
+    </div>
+    <div class="form-row mb-3">
         <label for="expertCity" class="col-form-label col-md-2">City</label>
         <input id="expertCity"
                name="expertCity"

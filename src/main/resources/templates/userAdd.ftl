@@ -1,4 +1,5 @@
 <#import "parts/common.ftl" as c>
+<#include "parts/security.ftl">
 
 <@c.page>
 <div class="card mx-auto" style="max-width: 30rem;">
@@ -15,7 +16,7 @@
             </div>
             <div class="form-row mb-3">
                 <label class="col-form-label col-md-5">Confirm password</label>
-                <input class="form-control col-md-7" type="password" placeholder="Confirm password" name="password2" id="password" />
+                <input class="form-control col-md-7" type="password" placeholder="Confirm password" name="password2" id="password2" />
             </div>
 
 
@@ -27,13 +28,35 @@
 
             <label class="card-text mb-0">Select roles:</label>
             <#list roles as role>
+                <#if role!="ADMIN">
                 <div>
+                    <span class="align-middle">
                     <input type="checkbox"
                            class="mr-1"
                            id="${role}"
-                           name="${role}"/>
+                           name="${role}"
+                           style="width: 1.00rem !important; height: 1.00rem !important;"
+                        <#--${user.roles?seq_contains(role)?string("checked", "")}-->
+                    />
+                    </span>
                     <label class="form-check-label" for="${role}">${role}</label>
                 </div>
+                <#else >
+                    <#if isAdmin>
+                <div>
+                    <span class="align-middle">
+                    <input type="checkbox"
+                           class="mr-1"
+                           id="${role}"
+                           name="${role}"
+                           style="width: 1.00rem !important; height: 1.00rem !important;"
+                        <#--${user.roles?seq_contains(role)?string("checked", "")}-->
+                    />
+                    </span>
+                    <label class="form-check-label" for="${role}">${role}</label>
+                </div>
+                    </#if>
+                </#if>
             </#list>
 
             <input type="hidden" value="${_csrf.token}" name="_csrf"/>

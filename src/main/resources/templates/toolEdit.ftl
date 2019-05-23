@@ -3,7 +3,13 @@
 <@c.page>
 
 <div class="card mx-auto" style="max-width: 30rem;">
-    <h5 class="card-header">Edit tool</h5>
+    <h5 class="card-header">
+        <#if tool.id??>
+            Edit tool
+        <#else >
+            Add new tool
+        </#if>
+    </h5>
     <div class="card-body">
         <form action="/businessInfo/tool/post" method="post">
             <div class="form-group">

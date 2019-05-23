@@ -2,7 +2,13 @@
 
 <@c.page>
 <div class="card mx-auto" style="max-width: 30rem;">
-    <h5 class="card-header">Edit task</h5>
+    <h5 class="card-header">
+        <#if task.id??>
+            Edit task
+        <#else >
+            Add new task
+        </#if>
+    </h5>
     <div class="card-body">
 
         <form action="/businessInfo/task/post" method="post">
@@ -22,9 +28,12 @@
             <label class="card-text mb-0 mt-1">Select tools:</label>
     <#list taskTools as tool>
     <#--<b>${tool.name}</b>-->
-    <div>
+    <div style="word-break: break-all">
+        <span class="align-middle">
         <input type="checkbox" id="${tool.id}"
-               name="${tool.id}" ${task.tools?if_exists?seq_contains(tool)?string("checked", "")} />
+               name="${tool.id}" ${task.tools?if_exists?seq_contains(tool)?string("checked", "")}
+               style="width: 1.00rem !important; height: 1.00rem !important;"/>
+            </span>
         <label class="form-check-label" for="${tool.id}">${tool.name}</label>
     </div>
     <#else >

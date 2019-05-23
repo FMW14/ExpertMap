@@ -23,7 +23,7 @@ public class Problem {
     @Length(max = 255, message = "Title too long")
     private String name;
 
-//    @NotNull(message = "Type cannot be empty")
+    @NotNull(message = "You must select the type")
     private Boolean type;
 
 //    @ManyToMany

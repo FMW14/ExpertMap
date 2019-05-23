@@ -1,3 +1,4 @@
+<#include "parts/security.ftl">
 <#import "parts/common.ftl" as c>
 
 <@c.page>
@@ -7,9 +8,11 @@
 <div>
     <div class="form-inline float-left mt-2"><h4>Problems</h4></div>
 
+    <#if isMod>
     <div class="float-right mb-3">
         <a href="/businessInfo/problem/edit/" class="btn btn-primary ml-5 " style="width: 180px; text-align: center">Add new problem</a>
     </div>
+    </#if>
 </div>
 <#--style="width: 100px; text-align: center"-->
 
@@ -21,8 +24,8 @@
         <tr>
             <th scope="col" data-sortable="true">Title</th>
             <#--<th scope="col" data-width="50" data-sortable="true">Type</th>-->
-            <th scope="col" data-width="80" data-align="center" >Edit</th>
-            <th scope="col" data-width="100" data-align="center" >Delete</th>
+                <th scope="col" data-width="80" data-align="center" >Edit</th>
+                <th scope="col" data-width="100" data-align="center" >Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -31,15 +34,15 @@
         <td scope="row">
             ${problem.name}
         </td>
-        <#--<td scope="row">-->
-            <#--${problem.type.toString()?if_exists}-->
-        <#--</td>-->
+
         <td scope="row" align="center">
             <a href="/businessInfo/problem/edit/${problem.id}" class="btn btn-outline-primary btn-sm" >Edit</a>
         </td>
+
         <td scope="row" align="center">
             <a href="/businessInfo/problem/delete/${problem.id}" class="btn btn-outline-danger btn-sm">Delete</a>
         </td>
+
     </tr>
     </#list>
         </tbody>
@@ -67,14 +70,18 @@
 
 <div>
     <div class="form-inline float-left mt-2"><h4>Tasks</h4></div>
+    <#if isMod>
     <div class="float-right mb-3">
         <a href="/businessInfo/task/edit/" class="btn btn-primary ml-5" style="width: 180px; text-align: center">Add new task</a>
     </div>
+    </#if>
 </div>
 
 <div class="mt-3 mb-3">
-    <table  class="table table-striped table-bordered table-hover"
-            data-toggle="table">
+    <table
+            <#--class="table table-striped table-bordered table-hover"-->
+            data-toggle="table"
+    >
         <thead class="thead-light">
         <tr>
             <th scope="col" data-sortable="true">Title</th>
@@ -85,7 +92,8 @@
         <tbody>
     <#list tasks as task>
     <tr>
-        <td scope="row">
+        <td scope="row"
+            style="word-break: break-all">
             ${task.name}
         </td>
         <td scope="row" align="center">
@@ -100,23 +108,13 @@
     </table>
 </div>
 
-<#--<h5>Список задач</h5>-->
-    <#--<#list tasks as task>-->
-<#--<div>-->
-    <#--<b>${task.name}</b>-->
-    <#--<a href="/businessInfo/task/edit/${task.id}">edit</a>-->
-    <#--<a href="/businessInfo/task/delete/${task.id}">delete</a>-->
-<#--</div>-->
-    <#--<#else >-->
-<#--No tasks-->
-    <#--</#list>-->
-<#--<a href="/businessInfo/task/new/">Add new task</a>-->
-
 <div>
     <div class="form-inline float-left mt-2"><h4>Tools</h4></div>
+    <#if isMod>
     <div class="float-right mb-3">
         <a href="/businessInfo/tool/edit/" class="btn btn-primary ml-5" style="width: 180px; text-align: center">Add new tool</a>
     </div>
+    </#if>
 </div>
 
 <div class="mt-3">
@@ -146,28 +144,4 @@
         </tbody>
     </table>
 </div>
-
-
-
-
-<#--<div class="form-inline">-->
-    <#--<h5>Tools</h5>-->
-    <#--<a href="/businessInfo/tool/new/" class="btn btn-primary ml-5">Add new tool</a>-->
-<#--</div>-->
-<#--&lt;#&ndash;<h5>Список инструментов</h5>&ndash;&gt;-->
-<#--&lt;#&ndash;<div>Список инструментов</div>&ndash;&gt;-->
-    <#--<#list tools as tool>-->
-<#--<div>-->
-    <#--<b>${tool.name}</b>-->
-    <#--<a href="/businessInfo/tool/edit/${tool.id}">edit</a>-->
-    <#--<a href="/businessInfo/tool/delete/${tool.id}">delete</a>-->
-<#--</div>-->
-    <#--<#else >-->
-<#--No tools-->
-    <#--</#list>-->
-<#--&lt;#&ndash;<a href="/businessInfo/tool/new/">Add new tool</a>&ndash;&gt;-->
-<#--</p>-->
-
-    <#--${message?if_exists}-->
-
 </@c.page>

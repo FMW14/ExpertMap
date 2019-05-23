@@ -22,7 +22,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/businessInfo")
-@PreAuthorize("hasAuthority('USER')")
+@PreAuthorize("hasAuthority('MOD2')")
 public class BusinessInfoController {
     @Autowired
     private ProblemRepo problemRepo;
