@@ -13,10 +13,11 @@
 
         <form action="/businessInfo/task/post" method="post">
             <div class="form-group">
-                <input class="form-control mb-1 ${(nameError??)?string('is-invalid', '')}"
+                <input class="form-control text-primary mb-1 ${(nameError??)?string('is-invalid', '')}"
                        type="text"
                        name="name"
                        placeholder="Enter the title"
+                       autocomplete="off"
                        value="${task.name?if_exists}"/>
                 <#if nameError??>
                     <div class="invalid-feedback">
@@ -30,7 +31,8 @@
     <#--<b>${tool.name}</b>-->
     <div style="word-break: break-all">
         <span class="align-middle">
-        <input type="checkbox" id="${tool.id}"
+        <input type="checkbox"
+               id="${tool.id}"
                name="${tool.id}" ${task.tools?if_exists?seq_contains(tool)?string("checked", "")}
                style="width: 1.00rem !important; height: 1.00rem !important;"/>
             </span>

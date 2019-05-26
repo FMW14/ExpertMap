@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Service
 public class ToolService {
@@ -21,9 +22,11 @@ public class ToolService {
         }
 
         tool.setName(toolname); //присвоение названия
-
         toolRepo.save(tool);
+    }
 
+    public List<Tool> findAllByNameAsc(){
+        return toolRepo.findAllByOrderByNameAsc();
     }
 
 }

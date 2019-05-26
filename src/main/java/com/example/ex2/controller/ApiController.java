@@ -19,8 +19,8 @@ import java.util.*;
 public class ApiController {
 @Autowired
 private ToolRepo toolRepo;
-@Autowired
-private CountryRepo countryRepo;
+//@Autowired
+//private CountryRepo countryRepo;
 //@Autowired
 //private CityRepo cityRepo;
 @Autowired
@@ -37,7 +37,7 @@ private ProblemRepo problemRepo;
     @RequestMapping(value = "/getc", method = RequestMethod.GET)
     @ResponseBody
     public String getC(@RequestParam String val) {
-        System.out.println("ping");
+//        System.out.println("ping");
 //        Country c = countryRepo.findById(Long.parseLong(val)).get();
 //        List<Country> cl = countryRepo.findById(Long.parseLong(val));
         List<Tool> t = toolRepo.findById(Integer.parseInt(val));

@@ -36,12 +36,13 @@
                   <#--class="col-12"-->
             >
                 <#--<label for="problemName" class="mb-1">Title: </label>-->
-                <input class="form-control mb-1 ${(nameError??)?string('is-invalid', '')}"
+                <input class="form-control text-primary mb-1 ${(nameError??)?string('is-invalid', '')}"
                        type="text"
                        name="name"
                        id="name"
                        value="${problem.name?if_exists}"
                        placeholder="Enter the title"
+                       autocomplete="off"
                 />
                     <#if nameError??>
                     <div class="invalid-feedback">

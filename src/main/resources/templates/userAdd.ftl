@@ -8,7 +8,7 @@
         <form action="/user/adduser" class="col-12" method="post">
             <div class="form-row mb-3">
                 <label class="col-form-label col-md-5">Name</label>
-                <input class="form-control col-md-7" type="text" placeholder="Enter user name" name="username" id="userName" />
+                <input class="form-control col-md-7" type="text" placeholder="Enter user name" autocomplete="off" name="username" id="userName" />
             </div>
             <div class="form-row mb-3">
                 <label class="col-form-label col-md-5">Password</label>
@@ -18,13 +18,6 @@
                 <label class="col-form-label col-md-5">Confirm password</label>
                 <input class="form-control col-md-7" type="password" placeholder="Confirm password" name="password2" id="password2" />
             </div>
-
-
-
-            <#--<input class="form-control mb-3"-->
-                   <#--type="text"-->
-                   <#--name="userName"-->
-                   <#--placeholder="Enter user name"/>-->
 
             <label class="card-text mb-0">Select roles:</label>
             <#list roles as role>
@@ -36,7 +29,6 @@
                            id="${role}"
                            name="${role}"
                            style="width: 1.00rem !important; height: 1.00rem !important;"
-                        <#--${user.roles?seq_contains(role)?string("checked", "")}-->
                     />
                     </span>
                     <label class="form-check-label" for="${role}">${role}</label>
@@ -50,7 +42,6 @@
                            id="${role}"
                            name="${role}"
                            style="width: 1.00rem !important; height: 1.00rem !important;"
-                        <#--${user.roles?seq_contains(role)?string("checked", "")}-->
                     />
                     </span>
                     <label class="form-check-label" for="${role}">${role}</label>
@@ -67,17 +58,4 @@
         </form>
     </div>
 </div>
-
-
-
-
-    <#--<div class="form-group">-->
-        <#--<div><h5 name="username">Edit roles <br/>User: ${user.username}</h5></div>-->
-
-
-        <#--<input type="hidden" value="${user.id}" name="userId"/>-->
-
-    <#--</div>-->
-    <#--<button type="submit" class="btn btn-primary">Save</button>-->
-
 </@c.page>

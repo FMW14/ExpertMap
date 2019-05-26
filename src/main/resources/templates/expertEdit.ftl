@@ -7,31 +7,57 @@
 <form action="/expertList/expert/edit" method="post" class="col-12">
     <div class="form-row mb-3">
         <label class="col-form-label col-md-2">Name</label>
-        <input class="form-control col-md-10" type="text" placeholder="Name" name="expertName" id="expertName" value="${expert.name?if_exists}" />
+        <div class="col-md-10" style="padding-right:0;padding-left:0;">
+        <input class="form-control text-primary ${(nameError??)?string('is-invalid', '')}"
+               type="text"
+               placeholder="Name"
+               name="Name"
+               id="Name"
+               value="${expert.name?if_exists}" />
+        <#if nameError??>
+            <div class="invalid-feedback">
+                ${nameError}
+            </div>
+        </#if>
+        </div>
     </div>
     <div class="form-row mb-3">
         <label for="expertName" class="col-form-label col-md-2">Surname</label>
-        <input class="form-control col-md-10" type="text" placeholder="Surname" name="expertSurname" id="expertSurname" value="${expert.surname?if_exists}" />
+        <div class="col-md-10" style="padding-right:0;padding-left:0;">
+        <input class="form-control text-primary ${(surnameError??)?string('is-invalid', '')}" type="text" placeholder="Surname" name="Surname" id="Surname" value="${expert.surname?if_exists}" />
+            <#if surnameError??>
+            <div class="invalid-feedback">
+                ${surnameError}
+            </div>
+            </#if>
+        </div>
     </div>
     <div class="form-row mb-3">
         <label for="expertName" class="col-form-label col-md-2">Patronymic</label>
-        <input class="form-control col-md-10" type="text" placeholder="Patronymic" name="expertPatronymic" id="expertPatronymic"  value="${expert.patronymic?if_exists}" />
+        <div class="col-md-10" style="padding-right:0;padding-left:0;">
+        <input class="form-control text-primary" type="text" placeholder="Patronymic" name="Patronymic" id="Patronymic"  value="${expert.patronymic?if_exists}" />
+        </div>
     </div>
     <div class="form-row mb-3">
         <label for="expertEmail" class="col-form-label col-md-2">Email</label>
-        <input class="form-control col-md-10" type="email" placeholder="Email" name="expertEmail" id="expertEmail"  value="${expert.email?if_exists}" />
+        <div class="col-md-10" style="padding-right:0;padding-left:0;">
+        <input class="form-control text-primary" type="email" placeholder="Email" name="Email" id="Email"  value="${expert.email?if_exists}" />
+        </div>
     </div>
     <div class="form-row mb-3">
         <label for="expertPhone" class="col-form-label col-md-2">Phone</label>
-        <input class="form-control col-md-10" type="text" placeholder="Phone" name="expertPhone" id="expertPhone"  value="${expert.phone?if_exists}" />
+        <div class="col-md-10" style="padding-right:0;padding-left:0;">
+        <input class="form-control text-primary" type="text" placeholder="Phone" name="Phone" id="Phone"  value="${expert.phone?if_exists}" />
+        </div>
     </div>
 
     <div class="form-row mb-3">
-        <label for="expertCountry" class="col-form-label col-md-2">Country</label>
-        <select id="expertCountry" name="expertCountry" class="form-control col-md-10 ">
-            <option value="" selected disabled>Select country</option>
+        <label for="Country" class="col-form-label col-md-2">Country</label>
+        <div class="col-md-10" style="padding-right:0;padding-left:0;">
+        <select id="Country" name="Country" class="form-control text-primary ${(countryError??)?string('is-invalid', '')}">
+            <option value=""  selected disabled>Select country</option>
              <#list countries as cnt>
-                 <option value=${cnt.country_id}
+                 <option class="text-dark" value=${cnt.country_id}
                      <#if expert.country??>
                         <#if expert.country.country_id == cnt.country_id>selected</#if>
                      </#if>
@@ -42,22 +68,32 @@
                 No country list
              </#list>
         </select>
+            <#if countryError??>
+            <div class="invalid-feedback">
+                ${countryError}
+            </div>
+            </#if>
+        </div>
     </div>
     <div class="form-row mb-3">
-        <label for="expertCity" class="col-form-label col-md-2">City</label>
-        <input id="expertCity"
-               name="expertCity"
+        <label for="City" class="col-form-label col-md-2">City</label>
+        <div class="col-md-10" style="padding-right:0;padding-left:0;">
+        <input class="form-control text-primary"
+               id="City"
+               name="City"
                placeholder="Enter city"
-               class="form-control col-md-10"
                value="${expert.city?if_exists}">
         </input>
+        </div>
     </div>
     <#--<div class="invalid-feedback">-->
         <#--Please provide a valid city.-->
     <#--</div>-->
 
     <#list rate as rt>
-    <div class="form-row mb-2">
+    <div class="form-row mb-2"
+         style="word-break: break-word">
+        <span class="align-middle">
         <select class="form-control form-control-sm mr-3"
                 id=${rt.toolname}
                 name=${rt.toolname}
@@ -69,37 +105,43 @@
                 <option value="4" <#if rt.rate == 4>selected</#if>>4</option>
                 <option value="5" <#if rt.rate == 5>selected</#if>>5</option>
         </select>
-        <label class="col-form-label" >${rt.toolname} </label>
+        </span>
+        <label for=name=${rt.toolname} class="col-form-label" >${rt.toolname} </label>
     </div>
     <#else >
         No tools
     </#list>
 
     <div>
-        <input id="onlineAccess"
+        <span class="align-middle">
+        <input id="online"
                type="checkbox"
                name="onlineAccess"
+               style="width: 1.00rem !important; height: 1.00rem !important;"
         <#--style="width: 1.25rem !important; height: 1.25rem !important;"-->
                <#--problem.tasks?if_exists?seq_contains(task)?string("checked", "")-->
                 <#if expert.online??>
                     ${expert.online?then("checked", "")}
                 </#if>
         />
+        </span>
 
-        <label for="onlineAccess"
+        <label for="online"
                class="form-check-label">
             Online access
         </label>
     </div>
-
     <div>
-        <input id="offlineAccess"
+        <span class="align-middle">
+        <input id="offline"
                type="checkbox"
-               name="offlineAccess"
+               name="offline"
+               style="width: 1.00rem !important; height: 1.00rem !important;"
                <#if expert.offline??>
-                    ${expert.offline?then("checked", "")}
+                   ${expert.offline?then("checked", "")}
                </#if>
         />
+        </span>
 
         <label for="offlineAccess"
                class="form-check-label">
@@ -107,8 +149,25 @@
         </label>
     </div>
 
+    <label class="card-text mb-0 mt-1">Select languages:</label>
+    <#list langs as lang>
+    <div style="word-break: break-all">
+        <span class="align-middle">
+        <input type="checkbox"
+               id="${lang.id}"
+               name="${lang.id}" ${expert.lang?if_exists?seq_contains(lang)?string("checked", "")}
+               style="width: 1.00rem !important; height: 1.00rem !important;"/>
+            </span>
+        <label class="form-check-label" for="${lang.id}">${lang.titleru}</label>
+    </div>
+    <#else >
+        No langs
+    </#list>
 
-    <input type="hidden" value="${expert.id?if_exists}" name="expertId" />
+
+
+
+    <input type="hidden" value="${expert.id?if_exists}" name="Id" />
     <input type="hidden" value="${_csrf.token}" name="_csrf" />
 
     <div class="form-inline float-right">

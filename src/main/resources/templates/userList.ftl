@@ -33,7 +33,7 @@
     <#if user.username!="admin">
     <tr>
         <td>${user.username}</td>
-        <td><#list user.roles as role>${role}<#sep>,</#list></td>
+        <td><#list user.roles as role>${role}<#sep>, </#list></td>
         <td>
             <a href="/user/${user.id}" class="btn btn-outline-primary btn-sm">Edit</a>
         </td>
@@ -47,7 +47,7 @@
         <#if isAdmin>
             <tr>
                 <td>${user.username}</td>
-                <td><#list user.roles as role>${role}<#sep>,</#list></td>
+                <td><#list user.roles as role>${role}<#sep>, </#list></td>
                 <td>
                     <a href="/user/${user.id}" class="btn btn-outline-primary btn-sm">Edit</a>
                 </td>

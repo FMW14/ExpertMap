@@ -20,8 +20,6 @@ import java.util.Map;
 @PreAuthorize("hasAuthority('MOD1')")
 public class UserController {
     @Autowired
-    private UserRepo userRepo;
-    @Autowired
     private UserService userService;
 
     @GetMapping

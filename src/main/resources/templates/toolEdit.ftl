@@ -13,10 +13,11 @@
     <div class="card-body">
         <form action="/businessInfo/tool/post" method="post">
             <div class="form-group">
-                <input class="form-control ${(nameError??)?string('is-invalid', '')}"
+                <input class="form-control text-primary ${(nameError??)?string('is-invalid', '')}"
                        type="text"
                        name="name"
                        placeholder="Enter the title"
+                       autocomplete="off"
                        value="${tool.name?if_exists}"
                 <#--value="<#if message??>${tool.name}</#if>"-->
                 />

@@ -9,6 +9,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,10 +32,11 @@ public class Expert {
     @Length(max = 255, message = "Surname too long")
     private String surname;
 
-    @NotBlank(message = "Surname cannot be empty")
+    @Length(max = 255, message = "Patronymic too long")
     private String patronymic;
 
     @Email
+    @Length(max = 255, message = "Email too long")
     private String email;
 
     @Length(max = 255, message = "Phone too long")
@@ -46,9 +48,6 @@ public class Expert {
     private Boolean online;
 
     private Boolean offline;
-
-//    @ManyToMany(mappedBy = "experts")
-//    private List<Tool> tools;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "expert", fetch = FetchType.EAGER, orphanRemoval = true)
     @JsonIgnore
@@ -62,29 +61,8 @@ public class Expert {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id", columnDefinition = "bigint")
     @JsonIgnore
+    @NotNull(message = "Select country")
     private Country country;
-
-//    @OneToOne(fetch = FetchType.LAZY)
-////    @MapsId
-//    @JoinColumn(name = "city_id", columnDefinition = "bigint")
-//    @JsonIgnore
-//    private City city;
-
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//
-//        if (o == null || getClass() != o.getClass())
-//            return false;
-//
-//        Expert expert = (Expert) o;
-//        return Objects.equals(name, expert.name);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(name);
-//    }
 
     public Expert() {
     }
@@ -93,107 +71,5 @@ public class Expert {
         this.name = name;
     }
 
-//    public Long getId() {
-//        return Id;
-//    }
-//
-//    public void setId(Long id) {
-//        Id = id;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
-//
-//    public String getSurname() {
-//        return surname;
-//    }
-//
-//    public void setSurname(String surname) {
-//        this.surname = surname;
-//    }
-//
-//    public String getPatronymic() {
-//        return patronymic;
-//    }
-//
-//    public void setPatronymic(String patronymic) {
-//        this.patronymic = patronymic;
-//    }
-//
-//    public String getEmail() {
-//        return email;
-//    }
-//
-//    public void setEmail(String email) {
-//        this.email = email;
-//    }
-//
-//    public String getPhone() {
-//        return phone;
-//    }
-//
-//    public void setPhone(String phone) {
-//        this.phone = phone;
-//    }
-//
-//    public Boolean getOnline() {
-//        return online;
-//    }
-//
-//    public void setOnline(Boolean online) {
-//        this.online = online;
-//    }
-//
-//    public Boolean getOffline() {
-//        return offline;
-//    }
-//
-//    public void setOffline(Boolean offline) {
-//        this.offline = offline;
-//    }
-//
-//    public List<ExpertTool> getExpertTools() {
-//        return expertTools;
-//    }
-//
-//    public void setExpertTools(List<ExpertTool> expertTools) {
-//        this.expertTools = expertTools;
-//    }
-//
-//    public List<Language> getLang() {
-//        return lang;
-//    }
-//
-//    public void setLang(List<Language> lang) {
-//        this.lang = lang;
-//    }
-//
-//    public String getCity() {
-//        return city;
-//    }
-//
-//    public void setCity(String city) {
-//        this.city = city;
-//    }
-//
-//    public Country getCountry() {
-//        return country;
-//    }
-//
-//    public void setCountry(Country country) {
-//        this.country = country;
-//    }
-//
-////    public List<Tool> getTools() {
-////        return tools;
-////    }
-////
-////    public void setTools(List<Tool> tools) {
-////        this.tools = tools;
-////    }
+
 }
