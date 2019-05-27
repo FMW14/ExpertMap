@@ -116,7 +116,7 @@
         <span class="align-middle">
         <input id="online"
                type="checkbox"
-               name="onlineAccess"
+               name="online"
                style="width: 1.00rem !important; height: 1.00rem !important;"
         <#--style="width: 1.25rem !important; height: 1.25rem !important;"-->
                <#--problem.tasks?if_exists?seq_contains(task)?string("checked", "")-->
