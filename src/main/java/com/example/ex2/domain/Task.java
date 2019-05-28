@@ -38,6 +38,13 @@ public class Task {
     @JsonIgnore
     private List<Tool> tools;
 
+    @PreRemove
+    private void removeTaskFromProblem() {
+        for (Problem p : problems) {
+            p.getTasks().remove(this);
+        }
+    }
+
     public Task(String name) {
         this.name = name;
     }

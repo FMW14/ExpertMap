@@ -13,6 +13,7 @@ create table user_role (user_id serial not null, roles varchar(255));
 create table usr (id  bigserial not null, active boolean not null, password varchar(255), username varchar(255), primary key (id));
 -- alter table _cities add constraint FKs041dh4why3bw5ss4tfykcoah foreign key (country_id) references _countries;
 -- alter table expert add constraint FKd66g2wguuii94sc8kwc40f8ad foreign key (city_id) references _cities;
+-- ON DELETE CASCADE
 alter table expert add constraint FKjgc3yauvv2m0coy2e8aiqomvv foreign key (country_id) references _countries;
 alter table expert_lang add constraint FK8483uy6scrftv62dy8f9ao6gw foreign key (lang_id) references _lang;
 alter table expert_lang add constraint FKinxbaqa6p3vda35f74w0897ar foreign key (experts_id) references expert;

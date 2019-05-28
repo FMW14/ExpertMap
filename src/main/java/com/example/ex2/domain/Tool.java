@@ -43,6 +43,13 @@ public class Tool {
 //    private Set<ExpertTool> expertTools;
     private List<ExpertTool> expertTools = new ArrayList<>();
 
+    @PreRemove
+    private void removeToolFromTask() {
+        for (Task t : tasks) {
+            t.getTools().remove(this);
+        }
+    }
+
 //    @Override
 //    public boolean equals(Object o) {
 //        if (this == o) return true;

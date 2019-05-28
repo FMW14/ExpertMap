@@ -86,7 +86,7 @@
                             <#--<#if problem.type?if_exists == true>checked</#if>-->
                             <input class="form-check-input ${(typeError??)?string('is-invalid', '')}"
                                    type="radio"
-                                   name="problemType"
+                                   name="type"
                                    id="TypeExternal"
                                    value="1"
                                    style="width: 1.00rem !important; height: 1.00rem !important;"
