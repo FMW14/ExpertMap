@@ -13,10 +13,10 @@ $(document).ready(function () {
             data: { selected : selected },
             success : function (data) {
                 $("#tools tr").remove();
-                var html =  "<table data-toggle='table' class='table table-striped table-bordered'>";
+                var html =  "<table data-toggle='table' class='table table-sm table-bordered'>";
                 for (var i = 0; i < data.length; i++) {
                     html+="<tr>";
-                    html+="<td data-width='80'>" + "<select class='form-control' name =" + data[i].name + " >";
+                    html+="<td style='width: 5%'>" + "<span class='align-middle'>"  + "<select class='form-control-sm' name =" + data[i].name + " >";
 
                     for (var z = 0; z < 6; z++) {
                         html+="<option value=";
@@ -25,13 +25,13 @@ $(document).ready(function () {
                         html+= z;
                         html+= "</option>";
                     }
-                    html+="</select>" + "</td>";
-                    html+="<td>" + data[i].name + "</td>";
+                    html+="</select>" + "</span></td>";
+                    html+="<td><span class='align-middle'>" + data[i].name + "</span></td>";
                     html+="</tr>";
 
                 }
                 html+="</table>" +
-                    "<button type='submit' class='btn btn-primary mt-3'>Confirm</button>";
+                    "<button type='submit' class='btn btn-primary mt-0'>Confirm</button>";
                 $("#tools").html(html);
             },
             error : function () {

@@ -2,11 +2,7 @@
 <#include "parts/security.ftl">
 
 <@c.page>
-<link href="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.css" rel="stylesheet">
-<script src="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.js"></script>
-
 <#--<a href="/user/add" class="btn btn-outline-primary">Add user</a>-->
-
 <div>
     <div class="form-inline float-left mt-2"><h4>List of users</h4></div>
 

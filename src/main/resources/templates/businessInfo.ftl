@@ -2,9 +2,6 @@
 <#import "parts/common.ftl" as c>
 
 <@c.page>
-<link href="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.css" rel="stylesheet">
-<script src="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.js"></script>
-
 <div>
     <div class="form-inline float-left mt-2"><h4>Problems</h4></div>
 

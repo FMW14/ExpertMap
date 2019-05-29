@@ -3,12 +3,12 @@
 <link href="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.css" rel="stylesheet">
 <script src="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.js"></script>
 
-<table class="table table-striped table-bordered table-hover"
+<table class="table table-sm table-bordered table-hover"
        data-toggle="table">
     <thead class="thead-light">
     <tr>
         <th scope="col" data-sortable="true">Tool title</th>
-        <th scope="col" data-sortable="true">Rate</th>
+        <th scope="col" data-sortable="true" style="width: 10%">Rate</th>
     </tr>
     </thead>
     <tbody>
@@ -17,7 +17,7 @@
         <td>
             ${t.toolname}
         </td>
-        <td>
+        <td style="width: 5%">
             ${t.rate}
         </td>
     </tr>
@@ -28,7 +28,7 @@
 </table>
 
 <table id="expertlist"
-       class="table table-striped table-bordered table-sm table-hover mt-5"
+       class="table table-striped table-bordered table-sm table-hover mt-4"
        data-toggle="table"
        data-pagination="true"
        data-sort-name="name">

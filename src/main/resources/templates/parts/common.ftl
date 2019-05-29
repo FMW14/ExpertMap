@@ -7,6 +7,9 @@
     <#--<link rel="stylesheet" href="/static/css/style.css" />-->
     <#--<link rel="stylesheet" href="style.css">-->
 
+
+
+
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
@@ -19,6 +22,9 @@
             integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
             crossorigin="anonymous">
     </script>
+    <!--Bootstrap-TABLE-->
+    <link href="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.js"></script>
     <#--<script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.js"></script>-->
     <#--<script src="https://mottie.github.io/tablesorter/js/jquery.tablesorter.widgets.js"></script>-->
 
