@@ -12,6 +12,6 @@
     </#if>
     </h5>
 
-<a href="/login">Login page</a>
+<#--<a href="/login">Login page</a>-->
 
 </@c.page>

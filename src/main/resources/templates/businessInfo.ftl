@@ -20,9 +20,9 @@
         <thead class="thead-light">
         <tr>
             <th scope="col" data-sortable="true">Title</th>
-            <#--<th scope="col" data-width="50" data-sortable="true">Type</th>-->
-                <th scope="col" data-width="80" data-align="center" >Edit</th>
-                <th scope="col" data-width="100" data-align="center" >Delete</th>
+            <th scope="col" data-sortable="true" data-width="60">Type</th>
+            <th scope="col" data-width="80" data-align="center" >Edit</th>
+            <th scope="col" data-width="100" data-align="center" >Delete</th>
         </tr>
         </thead>
         <tbody>
@@ -30,6 +30,13 @@
     <tr>
         <td scope="row">
             ${problem.name}
+        </td>
+        <td  scope="row">
+            <#if problem.type == true>
+                Internal
+            <#else>
+                External
+            </#if>
         </td>
 
         <td scope="row" align="center">

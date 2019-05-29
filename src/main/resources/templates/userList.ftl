@@ -17,10 +17,10 @@
        data-toggle="table">
     <thead class="thead-light">
     <tr>
-        <th>Name</th>
-        <th>Roles</th>
-        <th scope="col" ></th>
-        <th scope="col" ></th>
+        <th scope="col">Name</th>
+        <th scope="col">Roles</th>
+        <th scope="col" data-width="80" data-align="center"></th>
+        <th scope="col" data-width="80" data-align="center"></th>
     </tr>
 
     </thead>

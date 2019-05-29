@@ -12,14 +12,15 @@
 <#--<link href="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.css" rel="stylesheet">-->
 <script type="text/javascript" src="/js/get_tasks.js"></script>
 <script type="text/javascript" src="/js/get_tools.js"></script>
+<script type="text/javascript" src="/js/clear.js"></script>
 
 <#--<script src="https://unpkg.com/bootstrap-table@1.14.2/dist/bootstrap-table.min.js"></script>-->
 <#--<script src="https://github.com/lightswitch05/table-to-json/blob/master/src/jquery.tabletojson.js"></script>-->
 
 <#--<h5>Выбор проблемы:</h5>-->
     <div>
-        <select class="form-control text-primary" id="problemList" name="problemList" >
-            <option value="" selected disabled>Select a problem</option>
+        <select class="form-control text-primary" id="problemList" name="problemList">
+            <option value="-1" selected="selected" disabled>Select a problem</option>
                 <#list problems as problem>
                     <option class="text-dark" value="${problem.id}">${problem.name}</option>
                 </#list>
@@ -38,9 +39,9 @@
 
 <div class="form-group">
     <form action="/solution/result" method='get'>
-        <input type="hidden" value="${_csrf.token}" name="_csrf" />
+        <#--<input type="hidden" value="${_csrf.token}" name="_csrf" />-->
         <div id="tools"></div>
-        <#--<button type='submit' class="btn btn-primary mt-3">Confirm</button>-->
+        <button id="confirm" type='submit' class="btn btn-primary" style="visibility: hidden">Confirm</button>
     </form>
 </div>
 </@c.page>

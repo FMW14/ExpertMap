@@ -8,16 +8,21 @@
     <thead class="thead-light">
     <tr>
         <th scope="col" data-sortable="true">Tool title</th>
-        <th scope="col" data-sortable="true" style="width: 10%">Rate</th>
+        <th scope="col" data-sortable="true"
+        <#--style="width: 10%"-->
+            data-width="80"
+            data-align="center"
+        >Rate
+        </th>
     </tr>
     </thead>
     <tbody>
     <#list tools as t>
     <tr>
-        <td>
+        <td scope="row">
             ${t.toolname}
         </td>
-        <td style="width: 5%">
+        <td scope="row">
             ${t.rate}
         </td>
     </tr>
@@ -40,11 +45,13 @@
         <th scope="col" data-sortable="true">Country</th>
         <th scope="col" data-sortable="true">City</th>
         <th scope="col" data-sortable="true">Email</th>
+        <th scope="col" data-sortable="true" data-align="center">Online</th>
+        <th scope="col" data-sortable="true" data-align="center">Offline</th>
         <#list tools as t>
             <td scope="row">${t.toolname?if_exists}</td>
         </#list>
     <#list toolslist as tl>
-        <th scope="col" data-sortable="true">${tl.name}</th>
+        <th scope="col" data-sortable="true" data-align="center">${tl.name}</th>
     </#list>
     </tr>
     </thead>
@@ -57,6 +64,20 @@
         <td scope="row">${e.country?if_exists}</td>
         <td scope="row">${e.city?if_exists}</td>
         <td scope="row">${e.email?if_exists}</td>
+        <td scope="row">
+            <#if e.online == true>
+                Yes
+            <#else>
+                No
+            </#if>
+        </td>
+        <td scope="row">
+            <#if e.offline == true>
+                Yes
+            <#else>
+                No
+            </#if>
+        </td>
         <#list e.expertToolDtos as et>
             <td scope="row">${et.rating?if_exists}</td>
         </#list>

@@ -38,7 +38,9 @@
         <th scope="col" data-sortable="true">Patronymic</th>
         <th scope="col" data-sortable="true">Country</th>
         <th scope="col" data-sortable="true">City</th>
-        <th scope="col" data-sortable="true">Email</th>
+        <#--<th scope="col" data-sortable="true">Email</th>-->
+        <#--<th scope="col" data-sortable="true">Online</th>-->
+        <#--<th scope="col" data-sortable="true">Offline</th>-->
         <th scope="col" data-width="80" data-align="center">Edit</th>
         <th scope="col" data-width="100" data-align="center">Delete</th>
     </tr>
@@ -51,7 +53,24 @@
         <td scope="row">${e.patronymic}</td>
         <td scope="row">${e.country.titleru?if_exists}</td>
         <td scope="row">${e.city?if_exists}</td>
-        <td scope="row">${e.email?if_exists}</td>
+        <#--<td scope="row">${e.email?if_exists}</td>-->
+        <#--<td scope="row">-->
+            <#--<#if e.online == true>-->
+                <#--Yes-->
+            <#--<#else>-->
+                <#--No-->
+            <#--</#if>-->
+            <#--&lt;#&ndash;<#if e.online?then('Yes', 'No')></#if>&ndash;&gt;-->
+            <#--&lt;#&ndash;${e.online}&ndash;&gt;-->
+        <#--</td>-->
+
+        <#--<td scope="row">-->
+            <#--<#if e.offline == true>-->
+                <#--Yes-->
+            <#--<#else>-->
+                <#--No-->
+            <#--</#if>-->
+        <#--</td>-->
         <td scope="row"><a href="/expertList/expert/edit/${e.id}" class="btn btn-outline-primary btn-sm">Edit</a></td>
         <td scope="row"><a href="/expertList/expert/delete/${e.id}" class="btn btn-outline-danger btn-sm">Delete</a></td>
         <#--<td><a href="/user/${user.id}">edit</a> </td>-->
