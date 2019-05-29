@@ -15,18 +15,8 @@ public class MainController {
     @GetMapping("/")
     public String greeting(@AuthenticationPrincipal User user,
                            Model model) {
-//        model.addAttribute("user", user);
-
         return "main";
     }
-
-//    @RequestMapping("/gettime")
-//    @ResponseBody
-//    public String getSv(){
-//        System.out.println("-----get time------");
-//        Date d = new Date();
-//        return d.toString();
-//    }
 
     @GetMapping("/main")
     public String main(Map<String, Object> model) {

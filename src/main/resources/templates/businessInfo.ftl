@@ -33,9 +33,9 @@
         </td>
         <td  scope="row">
             <#if problem.type == true>
-                Internal
-            <#else>
                 External
+            <#else>
+                Internal
             </#if>
         </td>
 

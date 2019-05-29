@@ -34,15 +34,15 @@ private ProblemRepo problemRepo;
         return "rest";
     }
 
-    @RequestMapping(value = "/getc", method = RequestMethod.GET)
-    @ResponseBody
-    public String getC(@RequestParam String val) {
-//        System.out.println("ping");
-//        Country c = countryRepo.findById(Long.parseLong(val)).get();
-//        List<Country> cl = countryRepo.findById(Long.parseLong(val));
-        List<Tool> t = toolRepo.findById(Integer.parseInt(val));
-        return t.get(0).getName();
-    }
+//    @RequestMapping(value = "/getc", method = RequestMethod.GET)
+//    @ResponseBody
+//    public String getC(@RequestParam String val) {
+////        System.out.println("ping");
+////        Country c = countryRepo.findById(Long.parseLong(val)).get();
+////        List<Country> cl = countryRepo.findById(Long.parseLong(val));
+//        List<Tool> t = toolRepo.findById(Integer.parseInt(val));
+//        return t.get(0).getName();
+//    }
 
 //    @RequestMapping(value = "/get_tasks", method = RequestMethod.GET)
 //    @ResponseBody

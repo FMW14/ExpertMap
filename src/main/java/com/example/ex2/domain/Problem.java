@@ -25,7 +25,7 @@ public class Problem {
 
     @NotNull(message = "You must select the type")
     private Boolean type;
-    //TRUE = INTERNAL PROBLEM, FALSE = EXTERNAL PROBLEM
+    //FALSE = INTERNAL PROBLEM, TRUE = EXTERNAL PROBLEM
 
 //    @ManyToMany
 //    @JoinTable(
