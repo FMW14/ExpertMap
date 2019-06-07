@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
-//@Embeddable
 @Entity(name="ExpertToolEntity")
 @Table(name="expert_tool")
 public class ExpertTool implements Serializable {
@@ -20,7 +19,6 @@ public class ExpertTool implements Serializable {
     @MapsId("toolId")
     private Tool tool;
 
-//    @Basic
     @Column(name = "rating")
     private Integer rating;
 

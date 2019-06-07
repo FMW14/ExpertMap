@@ -12,12 +12,12 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
 @EqualsAndHashCode
 @Entity
-//@EnableTransactionManagement
 public class Expert {
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -51,7 +51,6 @@ public class Expert {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "expert", fetch = FetchType.EAGER, orphanRemoval = true)
     @JsonIgnore
-//    private Set<ExpertTool> expertTools;
     private List<ExpertTool> expertTools = new ArrayList<>();
 
     @ManyToMany

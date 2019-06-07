@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -22,7 +23,7 @@ public class Language {
 
     @ManyToMany(mappedBy = "lang")
 
-    private List<Expert> experts;
+    private Set<Expert> experts;
 
     public Language() {
     }

@@ -49,11 +49,11 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public boolean addUser(User user, String username, String password, String password2, Map<String, String> form) {
+    public void addUser(User user, String username, String password, String password2, Map<String, String> form) {
 
-        User userFromDb = userRepo.findByUsername(user.getUsername());
+        User userFromDb = userRepo.findByUsername(username);
         if (userFromDb != null) {
-            return false;
+            return;
         }
         user.setUsername(username);
 
@@ -82,7 +82,7 @@ public class UserService implements UserDetailsService {
 
         userRepo.save(user);
 
-        return true;
+        return;
     }
 
     public void saveUser(User user, String password, String password2, Map<String, String> form) {

@@ -22,14 +22,6 @@ public class Task {
     @Length(max = 255, message = "Title too long")
     private String name;
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "task_tool",
-//            joinColumns = { @JoinColumn (name = "task_id") },
-//            inverseJoinColumns = { @JoinColumn(name = "tool_id") }
-//    )
-//    private Set<Tool> problems = new HashSet<>();
-
     @ManyToMany(mappedBy = "tasks")
     @JsonIgnore
     private List<Problem> problems;

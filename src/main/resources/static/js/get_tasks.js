@@ -1,7 +1,6 @@
 $(document).ready(function () {
     $("#problemList").on('change', function () {
         var val = $("#problemList").val();
-        // var $table = $('#tasks');
         $.ajax({
             url : '/api/get_tasks',
             dataType: "json",
@@ -14,16 +13,15 @@ $(document).ready(function () {
                 html+="</tr></thead><tbody>";
                 for (var i = 0; i < data.length; i++) {
                     html+="<tr>";
-                    // html+="<span class='align-middle'>";
-                    html+="<td scope='row' align='center'>" + "<span class='align-middle'>" + "<input type='checkbox' checked value=" + data[i].id + " style='width: 1.10rem !important;" +
+                    html+="<td scope='row' align='center'>" + "<span class='align-middle'>" +
+                        "<input type='checkbox' checked value=" + data[i].id +
+                        " style='width: 1.10rem !important;" +
                         "height: 1.10rem !important;'/>" + "</span></td>";
                     html+="<td>" + data[i].name + "</td>";
                     html+="</tr>";
                 }
                 html+="</tbody></table>";
                 $("#tasks").html(html);
-                // $table.bootstrapTable('resetView');
-                // $("#ts").css("visibility", "visible");
                 $("#gettools").css("visibility", "visible");
             },
             error : function () {
@@ -32,3 +30,4 @@ $(document).ready(function () {
         })
     })
 });
+

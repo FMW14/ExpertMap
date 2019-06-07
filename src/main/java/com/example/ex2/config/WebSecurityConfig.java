@@ -19,13 +19,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeRequests()
-//                .antMatchers("/css/**","/js/**","/fonts/**","/images/**","/home","/").permitAll();
-
         http.authorizeRequests()
                     .antMatchers("/", "/main", "/index").permitAll()
                     .anyRequest().authenticated()
@@ -40,27 +35,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll();
     }
 
-
-
-//    @Override
-//    public void configure(WebSecurity web) throws Exception {
-//        web
-//                .ignoring()
-//                .antMatchers("/resources/**");
-//    }
-
-//    @Bean
-//    @Override
-//    public UserDetailsService userDetailsService() {
-//        UserDetails user =
-//                User.withDefaultPasswordEncoder()
-//                        .username("u")
-//                        .password("1")
-//                        .roles("USER")
-//                        .build();
-//
-//        return new InMemoryUserDetailsManager(user);
-//    }
 //    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
 //        auth.jdbcAuthentication()
 //                .dataSource(dataSource)
@@ -73,14 +47,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userService)
                 .passwordEncoder(passwordEncoder);
     }
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-//    auth.userDetailsService(userService)
-//            .passwordEncoder(NoOpPasswordEncoder.getInstance());
-//    }
-
-//    @Override
-//    public void configure(WebSecurity security){
-//        security.ignoring().antMatchers("css/**","js/**", "static", "/static");
-//    }
 
 }

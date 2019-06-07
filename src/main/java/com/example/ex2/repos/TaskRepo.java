@@ -7,10 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface TaskRepo extends JpaRepository<Task, Integer> {
-//    @Query(value = "select tasks_id from problem_tasks where problems_id = ?", nativeQuery = true)
-//    Task findByProblem(String problemname);
-
-//    @Query(value = "select tasks_id from problem_tasks where problems_id = ?1", nativeQuery = true)
     List<Task> findByProblems(Problem problem);
     List<Task> findAllByOrderByNameAsc();
     List<Task> findByName(String s);

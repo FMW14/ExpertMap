@@ -59,7 +59,6 @@ public class SolutionService {
     }
 
     public Set<ExpertDto> getExpertsByTools(Set<ToolRate> marks){
-//    public List<Expert> getExpertsByTools(Set<ToolRate> marks){
 
         Set<ExpertDto> experts = new LinkedHashSet<>();
 
